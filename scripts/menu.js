@@ -1,5 +1,6 @@
 const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
+const { console } = require('../utils');
 const menuSQL = require('./sql').menu;
 const menuMongo = require('./mongo').menu;
 

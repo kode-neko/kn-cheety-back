@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "db-menu-sql": "node ./scripts/menu.js --db sql",
+    "db-menu-mongo": "node ./scripts/menu.js --db mongo",
+    "db-init-sql": "node ./scripts/init.js",
+    "db-init-mongo": "node ./scripts/init.js"
   },
   "repository": {
     "type": "git",
