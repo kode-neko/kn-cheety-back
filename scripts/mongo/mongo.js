@@ -34,8 +34,8 @@ async function populate(db) {
   const userCollection = db.collection('user');
   const articlesCollection = db.collection('article');
   const resultUser = await userCollection.insertMany(users);
-  const resultArticle = await articlesCollection.insertMany(articles);
   console.log(`${resultUser.insertedCount} usuarios insertados`);
+  const resultArticle = await articlesCollection.insertMany(articles);
   console.log(`${resultArticle.insertedCount} artículos insertados`);
 }
 
@@ -43,12 +43,12 @@ async function drop(db) {
   const userCollection = db.collection('user');
   const articlesCollection = db.collection('article');
   const dropUsers = userCollection.drop();
-  const dropArticles = articlesCollection.drop();
   console.log(`Eliminado colección usuarios: ${dropUsers}`);
+  const dropArticles = articlesCollection.drop();
   console.log(`Eliminado colección artículos: ${dropArticles}`);
 }
 
-exports = {
+module.exports = {
   getDb,
   getDbHere,
   populate,

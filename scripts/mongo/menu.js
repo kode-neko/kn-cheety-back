@@ -1,13 +1,11 @@
 require('dotenv').config();
-const { Console } = require('console');
 
 const chalk = require('chalk');
 const figlet = require('figlet');
-const prompt = require('inquirer').propmt;
+const { prompt } = require('inquirer');
+const { console } = require('../../utils');
 
 const { getDbHere, populate, drop } = require('./mongo');
-
-const console = new Console(process.stdout, process.stderr);
 
 const choices = {
   populate: {
@@ -47,18 +45,18 @@ function menu() {
       message: 'Select a operation',
       choices: Object.entries(choices).map(([, val]) => val.opt),
     },
-  ])
-    .then(async (answer) => {
-      const [, db] = await getDbHere();
+  ]).then(async (answer) => {
+    const [client, db] = await getDbHere();
+    try {
       choices[answer.option].func(db);
-      process.exit(1);
-    })
-    .catch(async (err) => {
-      const [client] = await getDbHere();
-      console.error('Error', err);
-      client.close().then(() => console.log('Conexión cerrada')).catch((err2) => console.error(err2));
-      process.exit(1);
-    });
+    } catch (err) {
+      console.error(err.sqlMessage);
+      await drop();
+    } finally {
+      client.close();
+    }
+    process.exit(1);
+  });
 }
 
 module.exports = {
