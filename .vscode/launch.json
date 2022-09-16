@@ -23,7 +23,7 @@
         "<node_internals>/**"
       ],
       "console": "integratedTerminal",
-      "program": "${workspaceFolder}\\scripts\\mongo\\index.js"
+      "program": "${workspaceFolder}\\scripts\\mongo\\debug.test.js"
     },
   ]
 }
