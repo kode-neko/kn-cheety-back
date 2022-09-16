@@ -1,0 +1,21 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "../../ejemplos/udemy-node-example"
+		}
+	],
+	"settings": {
+		"workbench.iconTheme": "material-icon-theme",
+		"workbench.colorCustomizations": {
+			"titleBar.activeForeground": "#ffffff",
+			"titleBar.inactiveForeground": "#ffffff",
+			"titleBar.activeBackground": "#007f70",
+			"titleBar.inactiveBackground": "#007f70",
+			"statusBar.background": "#007f70"
+		},
+		"editor.semanticTokenColorCustomizations": {}
+	}
+}
