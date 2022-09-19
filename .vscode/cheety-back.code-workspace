@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "../../ejemplos/udemy-node-example"
+		},
+		{
+			"path": "../../ejemplos/udemy-node-sql-example"
 		}
 	],
 	"settings": {
