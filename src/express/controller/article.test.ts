@@ -1,16 +1,45 @@
 // import { stub } from 'sinon';
 import supertest from 'supertest';
 import { Response } from 'superagent';
-import { routes } from '../../config';
 import app from '../server';
 // import { articleRouter } from '../routes';
 
 describe('Article Controler', () => {
   it('Get all articles', async () => {
-    await supertest(app).get(routes.article.name + routes.gen.get)
+    await supertest(app).get('/article')
       .expect(200)
       .then((res: Response) => {
         expect(res.body).toHaveLength(0);
+      });
+  });
+  it('Get article by id', async () => {
+    await supertest(app).get(`/article/${1}`)
+      .expect(200)
+      .then((res: Response) => {
+        expect(res.body).toEqual({});
+      });
+  });
+  it('Post article', async () => {
+    await supertest(app).post('/article')
+      .send({})
+      .expect(201)
+      .then((res: Response) => {
+        expect(res.body).toEqual({});
+      });
+  });
+  it('Put article', async () => {
+    await supertest(app).put('/article')
+      .send({})
+      .expect(200)
+      .then((res: Response) => {
+        expect(res.body).toEqual({});
+      });
+  });
+  it('Delete article', async () => {
+    await supertest(app).delete(`/article/${1}`)
+      .expect(200)
+      .then((res: Response) => {
+        expect(res.body).toEqual({});
       });
   });
 });
