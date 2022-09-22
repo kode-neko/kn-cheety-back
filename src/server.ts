@@ -1,5 +1,5 @@
 import express from 'express';
-import { routes } from '../config';
+import { routes } from './config';
 import {
   articleRouter,
   userRouter,

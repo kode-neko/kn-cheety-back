@@ -22,6 +22,7 @@
 			"titleBar.inactiveBackground": "#007f70",
 			"statusBar.background": "#007f70"
 		},
-		"editor.semanticTokenColorCustomizations": {}
+		"editor.semanticTokenColorCustomizations": {},
+		"docwriter.style": "JSDoc"
 	}
 }
