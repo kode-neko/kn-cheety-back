@@ -8,6 +8,9 @@
 		},
 		{
 			"path": "../../ejemplos/udemy-node-sql-example"
+		},
+		{
+			"path": "../../testing-express"
 		}
 	],
 	"settings": {

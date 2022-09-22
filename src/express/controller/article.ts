@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 
 function getArticle(req: Request, res: Response): void {
-  res.status(200).json([]);
+  res.status(200).json(req.body);
 }
 
 function getArticleId(req: Request, res: Response): void {
