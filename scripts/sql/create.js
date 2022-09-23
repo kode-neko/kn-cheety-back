@@ -7,6 +7,7 @@ async function create() {
       name VARCHAR(50) NOT NULL,
       email VARCHAR(75) NOT NULL UNIQUE,
       pass VARCHAR(100) NOT NULL,
+      salt VARCHAR(100) NOT NULL,
 
       PRIMARY KEY(name)
     )

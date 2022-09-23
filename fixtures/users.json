@@ -2,11 +2,13 @@
   {
     "name": "kodeneko",
     "email": "kodeneko@gmail.com",
-    "pass": "$2y$10$gnk6C42afLAWfceK15/1yeC24yYDdcu.qFIBBeV2O.7ClJPkkCjJq"
+    "pass": "bd385140a9f08e1858d22a408d23108886b22b49787a7629bf67abb6e0acb32f",
+    "salt": "^7B9^9g37q2^"
   },
   {
     "name": "test",
     "email": "test@test.com",
-    "pass": "$2y$10$P3O/JiGGcn4eRPVe60cv6.m8SgWrrS8LA4JZ2PXmP/AeBYteCWheK"
+    "pass": "5ca254d0ffea6a9f3c4923340f750685f29f5e080b1e8970d98056c0fb65a036",
+    "salt": "5Lr$cr14Ng94"
   }
 ]

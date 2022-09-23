@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/kode-neko/cheety-back#readme",
   "dependencies": {
+    "@types/mongoose": "^5.11.97",
     "bcrypt": "^5.0.1",
     "chalk": "^4.1.2",
     "cors": "^2.8.5",
@@ -31,7 +32,7 @@
     "figlet": "^1.5.2",
     "inquirer": "^8.2.4",
     "mongodb": "^4.7.0",
-    "mongoose": "^6.4.0",
+    "mongoose": "^6.6.1",
     "mysql": "^2.18.1",
     "sequelize": "^6.21.0",
     "yargs": "^17.5.1"
