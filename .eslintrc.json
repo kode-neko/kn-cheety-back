@@ -24,7 +24,8 @@
       },
       "rules": {
         "react/jsx-filename-extension": "off",
-        "import/no-named-default": "off"
+        "import/no-named-default": "off",
+        "class-methods-use-this": "off"
       }
     }
   ]
