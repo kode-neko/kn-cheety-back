@@ -1,8 +1,10 @@
 import { Schema, model } from 'mongoose';
+import ICrud from '../Icrud';
 
 interface IArticle {
-  title: string;
-  content: string | [string];
+  id: string;
+  title?: string;
+  content?: string | [string];
   tags: [string];
   lang: string;
   author: string;
@@ -29,6 +31,34 @@ const articleSchema = new Schema<IArticle>({
     type: String,
     required: true,
   },
-});
+}, { id: true });
 
-export default model('article', articleSchema);
+const articleModel = model('article', articleSchema);
+
+class Article implements ICrud<IArticle> {
+  selectByid(id: string): IArticle {
+
+  }
+
+  selectAll(): IArticle {
+
+  }
+
+  select(params: Record<string, unknown>): IArticle {
+
+  }
+
+  insert(ele: T): IArticle {
+
+  }
+
+  update(ele: T): IArticle {
+
+  }
+
+  delete(id: string): void {
+
+  }
+}
+
+export default Article;

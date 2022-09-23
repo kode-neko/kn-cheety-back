@@ -1,2 +1,2 @@
-export * as article from './article';
-export * as user from './user';
+export { default as Article } from './article';
+export { default as User } from './user';
