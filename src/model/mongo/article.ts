@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import ICrud from '../Icrud';
+import ICrud from '../ICrud';
 
 interface IArticle {
   id: string;

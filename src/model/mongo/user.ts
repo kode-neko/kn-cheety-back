@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import ICrud from '../Icrud';
+import ICrud from '../ICrud';
 
 interface IUser {
   id: string;
@@ -28,7 +28,7 @@ const userSchema = new Schema<IUser>({
   },
 }, { id: true });
 
-const userModel = model('user', userSchema);
+const UserModel = model('user', userSchema);
 
 class User implements ICrud<IUser> {
   async selectByid(id: string): Promise<IUser | null> {
