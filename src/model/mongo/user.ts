@@ -28,36 +28,36 @@ const userSchema = new Schema<IUser>({
   },
 }, { id: true });
 
-const UserModel = model('user', userSchema);
+const userModel = model('user', userSchema);
 
 class User implements ICrud<IUser> {
-  static async selectByid(id: string): Promise<IUser | null> {
+  async selectByid(id: string): Promise<IUser | null> {
     const article = await UserModel.findById(id);
     return article;
   }
 
-  static async selectAll(): Promise<IUser[]> {
+  async selectAll(): Promise<IUser[]> {
     const articles = await UserModel.find();
     return articles;
   }
 
-  static async select(params: Record<string, unknown>): Promise<IUser[] | null> {
+  async select(params: Record<string, unknown>): Promise<IUser[] | null> {
     const articles = await UserModel.find(params);
     return articles;
   }
 
-  static async insert(ele: IUser): Promise<IUser> {
+  async insert(ele: IUser): Promise<IUser> {
     const article = new UserModel(ele);
     await article.save();
     return article;
   }
 
-  static async update(ele: IUser): Promise<boolean> {
+  async update(ele: IUser): Promise<boolean> {
     const res = await UserModel.updateOne(ele);
     return res.modifiedCount > 0;
   }
 
-  static async delete(id: string): Promise<boolean> {
+  async delete(id: string): Promise<boolean> {
     const res = await UserModel.deleteOne({ _id: id });
     return res.deletedCount > 0;
   }

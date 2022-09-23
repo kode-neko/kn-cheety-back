@@ -33,38 +33,31 @@ const articleSchema = new Schema<IArticle>({
   },
 }, { id: true });
 
-const ArticleModel = model('article', articleSchema);
+const articleModel = model('article', articleSchema);
 
 class Article implements ICrud<IArticle> {
-  async selectByid(id: string): Promise<IArticle | null> {
-    const article = await ArticleModel.findById(id);
-    return article;
+  selectByid(id: string): IArticle {
+
   }
 
-  async selectAll(): Promise<IArticle[]> {
-    const articles = await ArticleModel.find();
-    return articles;
+  selectAll(): IArticle {
+
   }
 
-  async select(params: Record<string, unknown>): Promise<IArticle[] | null> {
-    const articles = await ArticleModel.find(params);
-    return articles;
+  select(params: Record<string, unknown>): IArticle {
+
   }
 
-  async insert(ele: IArticle): Promise<IArticle> {
-    const article = new ArticleModel(ele);
-    await article.save();
-    return article;
+  insert(ele: T): IArticle {
+
   }
 
-  async update(ele: IArticle): Promise<boolean> {
-    const res = await ArticleModel.updateOne(ele);
-    return res.modifiedCount > 0;
+  update(ele: T): IArticle {
+
   }
 
-  async delete(id: string): Promise<boolean> {
-    const res = await ArticleModel.deleteOne({ _id: id });
-    return res.deletedCount > 0;
+  delete(id: string): void {
+
   }
 }
 
