@@ -34,7 +34,7 @@
     "mongodb": "^4.7.0",
     "mongoose": "^6.6.1",
     "mysql": "^2.18.1",
-    "sequelize": "^6.21.0",
+    "sequelize": "^6.23.1",
     "yargs": "^17.5.1"
   },
   "devDependencies": {

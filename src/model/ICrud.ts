@@ -1,10 +1,10 @@
 interface ICrud<T> {
-  selectByid: (id: string) => Promise<T | null>;
+  selectByid: (params: Record<string, unknown>) => Promise<T | null>;
   selectAll: () => Promise<T[]>;
   select: (params: Record<string, unknown>) => Promise<T[] | null>;
   insert: (ele: T) => Promise<T>;
-  update: (ele: T) => Promise<boolean>;
-  delete: (id: string) => Promise<boolean>;
+  update: (ele: T, params: Record<string, unknown>) => Promise<boolean>;
+  delete: (params: Record<string, unknown>) => Promise<boolean>;
 }
 
 export default ICrud;

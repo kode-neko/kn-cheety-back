@@ -11,6 +11,9 @@
 		},
 		{
 			"path": "../../testing-express"
+		},
+		{
+			"path": "../../../docker/server"
 		}
 	],
 	"settings": {

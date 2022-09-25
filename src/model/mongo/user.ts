@@ -31,8 +31,8 @@ const userSchema = new Schema<IUser>({
 const UserModel = model('user', userSchema);
 
 class User implements ICrud<IUser> {
-  async selectByid(id: string): Promise<IUser | null> {
-    const article = await UserModel.findById(id);
+  async selectByid(params: Record<string, unknown>): Promise<IUser | null> {
+    const article = await UserModel.findOne(params);
     return article;
   }
 
@@ -52,13 +52,13 @@ class User implements ICrud<IUser> {
     return article;
   }
 
-  async update(ele: IUser): Promise<boolean> {
-    const res = await UserModel.updateOne(ele);
+  async update(ele: IUser, params: Record<string, unknown>): Promise<boolean> {
+    const res = await UserModel.updateOne(params, ele);
     return res.modifiedCount > 0;
   }
 
-  async delete(id: string): Promise<boolean> {
-    const res = await UserModel.deleteOne({ _id: id });
+  async delete(params: Record<string, unknown>): Promise<boolean> {
+    const res = await UserModel.deleteOne(params);
     return res.deletedCount > 0;
   }
 }
