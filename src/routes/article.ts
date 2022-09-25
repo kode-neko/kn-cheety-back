@@ -13,6 +13,6 @@ router.get('/', getArticle);
 router.get('/:id', getArticleId);
 router.post('/', postArticle);
 router.put('/', putArticle);
-router.delete('/', deleteArticle);
+router.delete('/:id', deleteArticle);
 
 export default router;

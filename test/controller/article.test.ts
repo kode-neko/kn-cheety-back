@@ -1,42 +1,40 @@
-// import { stub } from 'sinon';
 import supertest from 'supertest';
 import { Response } from 'superagent';
-import app from '../server';
-// import { userRouter } from '../routes';
+import app from '../../src/server';
 
-describe('User Controler', () => {
-  it('Get all users', async () => {
-    await supertest(app).get('/user')
+describe('Article Controler', () => {
+  it('Get all articles', async () => {
+    await supertest(app).get('/article')
       .expect(200)
       .then((res: Response) => {
         expect(res.body).toHaveLength(0);
       });
   });
-  it('Get user by id', async () => {
-    await supertest(app).get(`/user/${1}`)
+  it('Get article by id', async () => {
+    await supertest(app).get(`/article/${1}`)
       .expect(200)
       .then((res: Response) => {
         expect(res.body).toEqual({});
       });
   });
-  it('Post user', async () => {
-    await supertest(app).post('/user')
+  it('Post article', async () => {
+    await supertest(app).post('/article')
       .send({})
       .expect(201)
       .then((res: Response) => {
         expect(res.body).toEqual({});
       });
   });
-  it('Put user', async () => {
-    await supertest(app).put('/user')
+  it('Put article', async () => {
+    await supertest(app).put('/article')
       .send({})
       .expect(200)
       .then((res: Response) => {
         expect(res.body).toEqual({});
       });
   });
-  it('Delete user', async () => {
-    await supertest(app).delete(`/user/${1}`)
+  it('Delete article', async () => {
+    await supertest(app).delete(`/article/${1}`)
       .expect(200)
       .then((res: Response) => {
         expect(res.body).toEqual({});
