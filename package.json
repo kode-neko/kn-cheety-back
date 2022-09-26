@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "init": "nodemon ./dist/express",
+    "init": "nodemon ./dist/src -m prod",
     "build": "tsc",
     "db-menu-sql": "node ./scripts/menu.js --db sql",
     "db-menu-mongo": "node ./scripts/menu.js --db mongo",
@@ -24,6 +24,7 @@
   "homepage": "https://github.com/kode-neko/cheety-back#readme",
   "dependencies": {
     "@types/mongoose": "^5.11.97",
+    "@types/yargs": "^17.0.13",
     "bcrypt": "^5.0.1",
     "chalk": "^4.1.2",
     "cors": "^2.8.5",
