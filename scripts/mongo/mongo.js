@@ -17,7 +17,7 @@ async function getDb() {
   await client.connect();
   const db = client.db(DB_NAME);
 
-  return [client, db];
+  return [client, db, url];
 }
 
 let dbData = null;
