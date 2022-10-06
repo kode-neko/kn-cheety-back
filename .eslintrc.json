@@ -1,21 +1,23 @@
 {
-  "extends": ["airbnb-base"],
   "env": {
     "browser": true,
-    "commonjs": true,
     "es2021": true
   },
+  "extends": ["airbnb-base"],
   "parserOptions": {
-    "ecmaVersion": "latest"
+    "ecmaVersion": "latest",
+    "sourceType": "module"
   },
   "rules": {
     "no-plusplus": "off",
     "no-underscore-dangle": "off",
-    "import/no-named-default": "off"
+    "import/no-named-default": "off",
+    "import/prefer-default-export": "off"
   },
   "overrides": [
     {
-      "files": ["**/*.ts", "**/*.tsx"],
+      "files": ["./src/**/*.ts"],
+      "excludedFiles": ["./src/**/*.test.ts"],
       "plugins": ["@typescript-eslint"],
       "extends": ["airbnb-base", "airbnb-typescript"],
       "parser": "@typescript-eslint/parser",
@@ -25,7 +27,37 @@
       "rules": {
         "react/jsx-filename-extension": "off",
         "import/no-named-default": "off",
-        "class-methods-use-this": "off"
+        "class-methods-use-this": "off",
+        "import/prefer-default-export": "off"
+      }
+    },
+    {
+      "files": [
+        "./*.ts",
+        "./src/**/*.test.ts",
+        "./cypress.config.ts",
+        "./cypress/**/*.ts"
+      ],
+      "plugins": ["@typescript-eslint"],
+      "extends": ["airbnb-base", "airbnb-typescript"],
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "project": ["./tsconfig.test.json"]
+      },
+      "rules": {
+        "react/jsx-filename-extension": "off",
+        "import/no-named-default": "off",
+        "class-methods-use-this": "off",
+        "import/prefer-default-export": "off"
+      }
+    },
+    {
+      "files": ["./cypress/**/*.js"],
+      "plugins": ["mocha", "cypress", "chai-expect"],
+      "extends": ["airbnb-base"],
+      "env": {
+        "mocha": true,
+        "cypress/globals": true
       }
     }
   ]

@@ -1,0 +1,8 @@
+{
+  "documents": [
+    {
+      "name": "example",
+      "fixtures": ["example"]
+    }
+  ]
+}

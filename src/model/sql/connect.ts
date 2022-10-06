@@ -1,9 +1,11 @@
-import dotenv from 'dotenv';
 import { Sequelize } from 'sequelize';
+import { envSelect } from '../../utils';
 
-dotenv.config();
+envSelect('dev');
 
-const { DB_NAME, DB_USER, DB_USER_PASS } = process.env;
+const {
+  DB_NAME, DB_USER, DB_USER_PASS, DB_SQL_HOST, DB_SQL_PORT,
+} = process.env;
 
 let connect: Sequelize;
 
@@ -14,8 +16,8 @@ function getCon() {
       DB_USER || '',
       DB_USER_PASS || '',
       {
-        host: 'localhost',
-        port: 3011,
+        host: DB_SQL_HOST,
+        port: Number(DB_SQL_PORT),
         dialect: 'mariadb',
       },
     );

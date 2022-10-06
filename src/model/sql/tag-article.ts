@@ -39,7 +39,7 @@ class TagArticle implements ICrud<ITagArticle> {
     return tagArticles;
   }
 
-  async select(params: Record<string, unknown>): Promise<ITagArticle[] | null> {
+  async select(params: Record<string, unknown>): Promise<ITagArticle[]> {
     const tagArticles = await TagArticleModel.findAll(params);
     return tagArticles;
   }
@@ -49,14 +49,14 @@ class TagArticle implements ICrud<ITagArticle> {
     return tagArticle;
   }
 
-  async update(ele: ITagArticle, params: Record<string, unknown>): Promise<boolean> {
+  async update(ele: Partial<ITagArticle>, params: Record<string, unknown>): Promise<number> {
     const res = await TagArticleModel.update({ ...ele }, { where: { ...params } });
-    return res[0] > 0;
+    return res[0];
   }
 
-  async delete(params: Record<string, unknown>): Promise<boolean> {
+  async delete(params: Record<string, unknown>): Promise<number> {
     const res = await TagArticleModel.destroy({ where: { ...params } });
-    return res > 0;
+    return res;
   }
 }
 

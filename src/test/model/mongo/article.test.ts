@@ -51,26 +51,26 @@ describe('Model Mongo Article', () => {
     }
   })
 
-  it('selectAll', async () => {
+  it('Model Mongo selectAll', async () => {
     const articles = await article.selectAll();
     expect(articles).toHaveLength(3);
   });
 
-  it('selectByid', async () => {
+  it('Model Mongo selectByid', async () => {
     const articles = await article.selectAll();
     const id = articles[0].id;
     const articleById = await article.selectByid({id: articles[0].id}); 
     expect(articleById?.id).toBe(id);
   });
 
-  it('select by param', async () => {
+  it('Model Mongo select by param', async () => {
     const articles = await article.selectAll();
     const title = articles[0].title;
     const articleByTitle = await article.select({title});
     expect(articleByTitle[0].title || '').toBe(title);
   });
 
-  it('insert', async () => {
+  it('Model Mongo insert', async () => {
     const articleAux: IArticle = {
       title: faker.lorem.words(),
       content: faker.lorem.text(),
@@ -82,17 +82,17 @@ describe('Model Mongo Article', () => {
     expect(articleInserted.id).not.toBeNull();
   });
 
-  it('update', async () => {
+  it('Model Mongo update', async () => {
     const articles = await article.selectAll();
     const updates = {title: faker.lorem.words()};
     const afected = await article.update(updates, {id: articles[0].id})
     expect(afected).toBeTruthy();
   });
 
-  it('delete', async () => {
+  it('Model Mongo delete', async () => {
     const articles = await article.selectAll();
     const afected = await article.delete({_id: articles[0].id});
-    const notAfected = await article.delete({_id: 'patata'});
+    const notAfected = await article.delete({_id: faker.datatype.uuid()});
     expect(afected).toBeTruthy();
     expect(notAfected).toBeFalsy();
   });

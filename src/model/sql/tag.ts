@@ -40,7 +40,7 @@ class Tag implements ICrud<ITag> {
     return tags;
   }
 
-  async select(params: Record<string, unknown>): Promise<ITag[] | null> {
+  async select(params: Record<string, unknown>): Promise<ITag[]> {
     const tags = await TagModel.findAll(params);
     return tags;
   }
@@ -50,14 +50,14 @@ class Tag implements ICrud<ITag> {
     return tag;
   }
 
-  async update(ele: ITag, params: Record<string, unknown>): Promise<boolean> {
+  async update(ele: Partial<ITag>, params: Record<string, unknown>): Promise<number> {
     const res = await TagModel.update({ ...ele }, { where: { ...params } });
-    return res[0] > 0;
+    return res[0];
   }
 
-  async delete(params: Record<string, unknown>): Promise<boolean> {
+  async delete(params: Record<string, unknown>): Promise<number> {
     const res = await TagModel.destroy({ where: { ...params } });
-    return res > 0;
+    return res;
   }
 }
 

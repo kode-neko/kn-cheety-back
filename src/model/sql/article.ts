@@ -7,7 +7,7 @@ import getCon from './connect';
 import { UserModel } from './user';
 
 interface IArticle {
-  id: number;
+  id?: number;
   title: string;
   author: string;
   lang: string;
@@ -60,28 +60,30 @@ class Article implements ICrud<IArticle> {
     return articles;
   }
 
-  async select(params: Record<string, unknown>): Promise<IArticle[] | null> {
+  async select(params: Record<string, unknown>): Promise<IArticle[]> {
     const articles = await ArticleModel.findAll(params);
     return articles;
   }
 
   async insert(ele: IArticle): Promise<IArticle> {
-    const article = await ArticleModel.create(ele);
+    const article = await ArticleModel.create(ele as ArticleModel);
     return article;
   }
 
-  async update(ele: IArticle, params: Record<string, unknown>): Promise<boolean> {
+  async update(ele: Partial<IArticle>, params: Record<string, unknown>): Promise<number> {
     const res = await ArticleModel.update({ ...ele }, { where: { ...params } });
-    return res[0] > 0;
+    return res[0];
   }
 
-  async delete(params: Record<string, unknown>): Promise<boolean> {
+  async delete(params: Record<string, unknown>): Promise<number> {
     const res = await ArticleModel.destroy({ where: { ...params } });
-    return res > 0;
+    return res;
   }
 }
 
 export default Article;
 export {
+  IArticle,
   ArticleModel,
+  Article,
 };

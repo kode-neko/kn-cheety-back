@@ -7,7 +7,7 @@ import { ArticleModel } from './article';
 import getCon from './connect';
 
 interface IArticleLine {
-  id: number;
+  id?: number;
   content: string;
   lang: string;
   article: number;
@@ -59,24 +59,24 @@ class ArticleLine implements ICrud<IArticleLine> {
     return articleLines;
   }
 
-  async select(params: Record<string, unknown>): Promise<IArticleLine[] | null> {
+  async select(params: Record<string, unknown>): Promise<IArticleLine[]> {
     const articleLines = await ArticleLineModel.findAll(params);
     return articleLines;
   }
 
   async insert(ele: IArticleLine): Promise<IArticleLine> {
-    const articleLine = await ArticleLineModel.create(ele);
+    const articleLine = await ArticleLineModel.create(ele as ArticleLineModel);
     return articleLine;
   }
 
-  async update(ele: IArticleLine, params: Record<string, unknown>): Promise<boolean> {
+  async update(ele: Partial<IArticleLine>, params: Record<string, unknown>): Promise<number> {
     const res = await ArticleLineModel.update({ ...ele }, { where: { ...params } });
-    return res[0] > 0;
+    return res[0];
   }
 
-  async delete(params: Record<string, unknown>): Promise<boolean> {
+  async delete(params: Record<string, unknown>): Promise<number> {
     const res = await ArticleLineModel.destroy({ where: { ...params } });
-    return res > 0;
+    return res;
   }
 }
 

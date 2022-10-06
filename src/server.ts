@@ -6,6 +6,7 @@ import {
 } from './routes/index';
 
 const app = express();
+app.set('view engine', 'mustache');
 app.use('/article', articleRouter);
 app.use('/user', userRouter);
 app.use('/auth', authRouter);

@@ -41,7 +41,7 @@ class User implements ICrud<IUser> {
     return articles;
   }
 
-  async select(params: Record<string, unknown>): Promise<IUser[] | null> {
+  async select(params: Record<string, unknown>): Promise<IUser[]> {
     const articles = await UserModel.find(params);
     return articles;
   }
@@ -52,14 +52,14 @@ class User implements ICrud<IUser> {
     return article;
   }
 
-  async update(ele: IUser, params: Record<string, unknown>): Promise<boolean> {
+  async update(ele: Partial<IUser>, params: Record<string, unknown>): Promise<number> {
     const res = await UserModel.updateOne(params, ele);
-    return res.modifiedCount > 0;
+    return res.modifiedCount;
   }
 
-  async delete(params: Record<string, unknown>): Promise<boolean> {
+  async delete(params: Record<string, unknown>): Promise<number> {
     const res = await UserModel.deleteOne(params);
-    return res.deletedCount > 0;
+    return res.deletedCount;
   }
 }
 

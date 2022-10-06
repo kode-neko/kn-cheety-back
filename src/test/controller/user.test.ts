@@ -2,22 +2,22 @@ import supertest from 'supertest';
 import { Response } from 'superagent';
 import app from '../../src/server';
 
-describe('User Controler', () => {
-  it('Get all users', async () => {
+describe('User Ctrl', () => {
+  it('Ctrl GET /user', async () => {
     await supertest(app).get('/user')
       .expect(200)
       .then((res: Response) => {
         expect(res.body).toHaveLength(0);
       });
   });
-  it('Get user by id', async () => {
+  it('Ctrl GET /user/:id', async () => {
     await supertest(app).get(`/user/${1}`)
       .expect(200)
       .then((res: Response) => {
         expect(res.body).toEqual({});
       });
   });
-  it('Post user', async () => {
+  it('Ctrl POST /user', async () => {
     await supertest(app).post('/user')
       .send({})
       .expect(201)
@@ -25,7 +25,7 @@ describe('User Controler', () => {
         expect(res.body).toEqual({});
       });
   });
-  it('Put user', async () => {
+  it('Ctrl PUT /user', async () => {
     await supertest(app).put('/user')
       .send({})
       .expect(200)
@@ -33,7 +33,7 @@ describe('User Controler', () => {
         expect(res.body).toEqual({});
       });
   });
-  it('Delete user', async () => {
+  it('Ctrl DELETE /user/:id', async () => {
     await supertest(app).delete(`/user/${1}`)
       .expect(200)
       .then((res: Response) => {
