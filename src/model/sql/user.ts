@@ -82,7 +82,8 @@ class User implements ICrud<IUser> {
   }
 }
 
-export default User;
 export {
+  IUser,
   UserModel,
+  User,
 };

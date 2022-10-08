@@ -7,8 +7,8 @@ import { checkIdCount, checkIdObj } from './decorator';
 interface IArticle {
   id?: Types.ObjectId;
   title?: string;
-  content?: string | [string];
-  tags: [string];
+  content?: string | string[];
+  tags: string[];
   lang: string;
   author: string;
 }
@@ -74,5 +74,4 @@ class Article implements ICrud<IArticle> {
   }
 }
 
-export default Article;
-export { IArticle };
+export { IArticle, ArticleModel, Article };

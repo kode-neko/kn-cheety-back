@@ -1,19 +1,25 @@
-import { default as User } from './user';
-import {
+export {
+  IArticleLine,
+  ArticleLineModel,
+  ArticleLine,
+} from './article-line';
+export {
   IArticle,
   ArticleModel,
   Article,
 } from './article';
-import { default as Tag } from './tag';
-import { default as ArticleLine } from './article-line';
-import { default as TagArticle } from './tag-article';
-
 export {
-  User,
-  IArticle,
-  ArticleModel,
-  Article,
-  Tag,
-  ArticleLine,
+  ITagArticle,
+  TagArticleModel,
   TagArticle,
-};
+} from './tag-article';
+export {
+  ITag,
+  TagModel,
+  Tag,
+} from './tag';
+export {
+  IUser,
+  UserModel,
+  User,
+} from './user';

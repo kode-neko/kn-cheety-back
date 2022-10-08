@@ -80,4 +80,8 @@ class ArticleLine implements ICrud<IArticleLine> {
   }
 }
 
-export default ArticleLine;
+export {
+  IArticleLine,
+  ArticleLineModel,
+  ArticleLine,
+};

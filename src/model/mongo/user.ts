@@ -2,9 +2,9 @@ import { Schema, model } from 'mongoose';
 import ICrud from '../ICrud';
 
 interface IUser {
-  id: string;
+  id?: string;
   name: string;
-  mail: string;
+  email: string;
   pass: string;
   salt: string;
 }
@@ -14,7 +14,7 @@ const userSchema = new Schema<IUser>({
     type: String,
     required: true,
   },
-  mail: {
+  email: {
     type: String,
     required: true,
   },
@@ -63,4 +63,4 @@ class User implements ICrud<IUser> {
   }
 }
 
-export default User;
+export { IUser, UserModel, User };

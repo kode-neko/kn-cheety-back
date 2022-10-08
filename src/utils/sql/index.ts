@@ -1,7 +1,8 @@
-export { checkIdCount, checkIdObj } from './decorators';
 export {
-  getURL,
-  getClient,
+  getCon,
+  queryPromise,
+  queryValuePromise,
+  queryInsertPromise,
   create,
   createAll,
   deleteAll,

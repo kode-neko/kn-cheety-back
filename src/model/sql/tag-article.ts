@@ -60,4 +60,8 @@ class TagArticle implements ICrud<ITagArticle> {
   }
 }
 
-export default TagArticle;
+export {
+  ITagArticle,
+  TagArticleModel,
+  TagArticle,
+};

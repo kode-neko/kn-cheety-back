@@ -81,7 +81,6 @@ class Article implements ICrud<IArticle> {
   }
 }
 
-export default Article;
 export {
   IArticle,
   ArticleModel,

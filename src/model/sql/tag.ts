@@ -61,7 +61,8 @@ class Tag implements ICrud<ITag> {
   }
 }
 
-export default Tag;
 export {
+  ITag,
   TagModel,
+  Tag,
 };

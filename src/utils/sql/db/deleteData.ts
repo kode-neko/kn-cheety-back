@@ -1,6 +1,6 @@
-const { queryPromise } = require('./sql');
+import { queryPromise } from './connect';
 
-async function deleteFrom() {
+async function deleteData():Promise<void> {
   const tables = ['article_line', 'tag_article', 'tag', 'article', 'user'];
   const promises = tables.map((table) => {
     const deleteStr = `DELETE FROM ${table}`;
@@ -8,5 +8,4 @@ async function deleteFrom() {
   });
   await Promise.all(promises);
 }
-
-module.exports = { deleteFrom };
+export default deleteData;

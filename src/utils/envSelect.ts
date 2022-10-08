@@ -1,7 +1,6 @@
-import dotenv from 'dotenv';
 import path from 'path';
 
-function envSelect(env = 'dev'): void {
+function envSelect(env = 'dev'): string {
   let pathDotEnv: string;
   switch (env) {
     case 'prod':
@@ -13,7 +12,7 @@ function envSelect(env = 'dev'): void {
     default:
       throw new Error('The env params must be "dev" or "prod"');
   }
-  dotenv.config({ path: path.resolve(process.cwd(), pathDotEnv) });
+  return path.resolve(process.cwd(), pathDotEnv);
 }
 
 export default envSelect;
