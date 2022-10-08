@@ -1,2 +1,2 @@
-export { IArticle, ArticleModel, Article } from './article';
-export { IUser, UserModel, User } from './user';
+export { IArticle, ArticleModel, Article } from './article.js';
+export { IUser, UserModel, User } from './user.js';

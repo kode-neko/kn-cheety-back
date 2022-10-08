@@ -3,9 +3,9 @@ import chalk from 'chalk';
 import figlet from 'figlet';
 import inquirer from 'inquirer';
 import { MongoError } from 'mongodb';
-import console from '../console';
-import envSelect from '../envSelect';
-import getEnv from '../getEnv';
+import console from '../console.js';
+import envSelect from '../envSelect.js';
+import getEnv from '../getEnv.js';
 import {
   getURL,
   getClient,
@@ -15,7 +15,7 @@ import {
   deleteData,
   drop,
   populate,
-} from '../mongo';
+} from '../mongo/index.js';
 
 const path = envSelect(getEnv());
 dotenv.config({ path });

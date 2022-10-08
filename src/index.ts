@@ -1,8 +1,8 @@
 import dotenv from 'dotenv';
-import app from './server';
+import app from './server.js';
 import {
   console, envSelect, getEnv, i18nextConfig,
-} from './utils';
+} from './utils/index.js';
 
 i18nextConfig();
 const path = envSelect(getEnv());

@@ -2,7 +2,7 @@ import { Db } from 'mongodb';
 import {
   articlesFixtures,
   usersFixtures,
-} from '../../../../fixtures';
+} from '../../../../fixtures/index.js';
 
 async function populate(db: Db): Promise<void> {
   const article = db.collection('article').insertMany(articlesFixtures);

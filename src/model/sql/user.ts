@@ -2,8 +2,8 @@
 import {
   Model, DataTypes, InferAttributes, InferCreationAttributes,
 } from 'sequelize';
-import ICrud from '../ICrud';
-import getCon from './connect';
+import ICrud from '../ICrud.js';
+import getCon from './connect.js';
 
 interface IUser {
   name: string;

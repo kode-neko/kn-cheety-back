@@ -1,6 +1,6 @@
 import supertest from 'supertest';
 import { Response } from 'superagent';
-import app from '../../src/server';
+import app from '../../server.js';
 
 describe('User Ctrl', () => {
   it('Ctrl GET /user', async () => {

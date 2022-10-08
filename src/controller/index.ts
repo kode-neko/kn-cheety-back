@@ -4,7 +4,7 @@ import {
   postArticle,
   putArticle,
   deleteArticle,
-} from './article';
+} from './article.js';
 
 import {
   getUser,
@@ -12,13 +12,13 @@ import {
   postUser,
   putUser,
   deleteUser,
-} from './user';
+} from './user.js';
 
 import {
   signup,
   login,
   logout,
-} from './auth';
+} from './auth.js';
 
 export {
   getArticle,

@@ -3,9 +3,9 @@ import chalk from 'chalk';
 import figlet from 'figlet';
 import inquirer from 'inquirer';
 import { MysqlError } from 'mysql';
-import console from '../console';
-import envSelect from '../envSelect';
-import getEnv from '../getEnv';
+import console from '../console.js';
+import envSelect from '../envSelect.js';
+import getEnv from '../getEnv.js';
 import {
   getCon,
   create,
@@ -14,7 +14,7 @@ import {
   deleteData,
   drop,
   populate,
-} from '../sql';
+} from '../sql/index.js';
 
 const path = envSelect(getEnv());
 dotenv.config({ path });

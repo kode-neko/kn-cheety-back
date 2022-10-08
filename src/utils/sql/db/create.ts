@@ -1,4 +1,4 @@
-import { queryPromise } from './connect';
+import { queryPromise } from './connect.js';
 
 async function create():Promise<void> {
   const createUser = `

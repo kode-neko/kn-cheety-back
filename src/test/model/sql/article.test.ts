@@ -1,8 +1,8 @@
 import { Sequelize } from 'sequelize';
 import {faker} from '@faker-js/faker'
-import {default as getConSequalize} from '../../../src/model/sql/connect'
+import {getConSequalize} from '../../../model/sql'
 import { console } from '../../../utils';
-import { IArticle, Article } from '../../../src/model/sql'
+import { IArticle, Article } from '../../src/model/sql/index.js'
 import {   
   create,
   deleteFrom,

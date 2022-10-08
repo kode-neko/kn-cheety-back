@@ -4,9 +4,9 @@ import {
   getDbHere,
   populate,
   drop,
-} from '../../../scripts/mongo/mongo';
+} from '../../../utils/mongo/index.js';
 import { console, envSelect } from '../../../utils';
-import Article, { IArticle } from '../../../src/model/mongo/article';
+import { Article, IArticle } from '../../../model/mongo/index.js';
 import {faker} from '@faker-js/faker'
 
 describe('Model Mongo Article', () => {

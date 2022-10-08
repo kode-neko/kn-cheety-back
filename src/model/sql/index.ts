@@ -2,24 +2,24 @@ export {
   IArticleLine,
   ArticleLineModel,
   ArticleLine,
-} from './article-line';
+} from './article-line.js';
 export {
   IArticle,
   ArticleModel,
   Article,
-} from './article';
+} from './article.js';
 export {
   ITagArticle,
   TagArticleModel,
   TagArticle,
-} from './tag-article';
+} from './tag-article.js';
 export {
   ITag,
   TagModel,
   Tag,
-} from './tag';
+} from './tag.js';
 export {
   IUser,
   UserModel,
   User,
-} from './user';
+} from './user.js';

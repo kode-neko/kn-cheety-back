@@ -1,4 +1,4 @@
-export { checkIdCount, checkIdObj } from './decorators';
+export { checkIdCount, checkIdObj } from './decorators/index.js';
 export {
   getURL,
   getClient,
@@ -8,4 +8,4 @@ export {
   deleteData,
   drop,
   populate,
-} from './db';
+} from './db/index.js';

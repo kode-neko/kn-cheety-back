@@ -2,9 +2,9 @@
 import {
   Model, DataTypes, InferAttributes, InferCreationAttributes, ForeignKey,
 } from 'sequelize';
-import ICrud from '../ICrud';
-import getCon from './connect';
-import { UserModel } from './user';
+import ICrud from '../ICrud.js';
+import getCon from './connect.js';
+import { UserModel } from './user.js';
 
 interface IArticle {
   id?: number;

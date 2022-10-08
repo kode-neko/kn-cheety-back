@@ -1,11 +1,11 @@
-import { articlesFixtures, usersFixtures } from '../../../../fixtures';
-import { queryValuePromise, queryInsertPromise } from './connect';
+import { articlesFixtures, usersFixtures } from '../../../../fixtures/index.js';
+import { queryValuePromise, queryInsertPromise } from './connect.js';
 import {
   IArticleLine, IArticle, IUser,
-} from '../../../model/sql';
+} from '../../../model/sql/index.js';
 import {
   IArticle as IArticleMongo, IUser as IUserMongo,
-} from '../../../model/mongo';
+} from '../../../model/mongo/index.js';
 
 const articlesFix = articlesFixtures as IArticleMongo[];
 const usersFix = usersFixtures as IUserMongo[];

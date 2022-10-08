@@ -1,5 +1,5 @@
 import { Sequelize } from 'sequelize';
-import { envSelect } from '../../utils';
+import { envSelect } from '../../utils/index.js';
 
 envSelect('dev');
 

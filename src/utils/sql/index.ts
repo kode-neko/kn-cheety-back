@@ -9,4 +9,4 @@ export {
   deleteData,
   drop,
   populate,
-} from './db';
+} from './db/index.js';

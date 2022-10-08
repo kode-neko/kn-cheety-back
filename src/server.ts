@@ -3,7 +3,7 @@ import {
   articleRouter,
   userRouter,
   authRouter,
-} from './routes/index';
+} from './routes/index.js';
 
 const app = express();
 app.set('view engine', 'mustache');

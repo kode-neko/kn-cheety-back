@@ -1,9 +1,9 @@
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
-import console from '../console';
-import envSelect from '../envSelect';
-import { default as mongo } from './mongo';
-import { default as sql } from './sql';
+import console from '../console.js';
+import envSelect from '../envSelect.js';
+import { default as mongo } from './mongo.js';
+import { default as sql } from './sql.js';
 
 const argsv = yargs(hideBin(process.argv))
   .option('db', {

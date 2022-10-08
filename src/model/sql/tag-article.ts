@@ -2,10 +2,10 @@
 import {
   Model, InferAttributes, InferCreationAttributes, ForeignKey,
 } from 'sequelize';
-import ICrud from '../ICrud';
-import { ArticleModel } from './article';
-import getCon from './connect';
-import { TagModel } from './tag';
+import ICrud from '../ICrud.js';
+import { ArticleModel } from './article.js';
+import getCon from './connect.js';
+import { TagModel } from './tag.js';
 
 interface ITagArticle {
   article: number;

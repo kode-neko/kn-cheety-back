@@ -3,10 +3,10 @@ export {
   queryPromise,
   queryValuePromise,
   queryInsertPromise,
-} from './connect';
-export { default as create } from './create';
-export { default as createAll } from './createAll';
-export { default as deleteAll } from './deleteAll';
-export { default as deleteData } from './deleteData';
-export { default as drop } from './drop';
-export { default as populate } from './populate';
+} from './connect.js';
+export { default as create } from './create.js';
+export { default as createAll } from './createAll.js';
+export { default as deleteAll } from './deleteAll.js';
+export { default as deleteData } from './deleteData.js';
+export { default as drop } from './drop.js';
+export { default as populate } from './populate.js';

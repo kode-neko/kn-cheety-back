@@ -1,4 +1,4 @@
-import { queryPromise } from './connect';
+import { queryPromise } from './connect.js';
 
 async function deleteData():Promise<void> {
   const tables = ['article_line', 'tag_article', 'tag', 'article', 'user'];
