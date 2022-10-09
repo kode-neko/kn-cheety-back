@@ -2,7 +2,6 @@ import { Schema, model } from 'mongoose';
 import ICrud from '../ICrud.js';
 
 interface IUser {
-  id?: string;
   name: string;
   email: string;
   pass: string;
@@ -26,30 +25,30 @@ const userSchema = new Schema<IUser>({
     type: String,
     required: true,
   },
-}, { id: true });
+}, { collection: 'user' });
 
 const UserModel = model('user', userSchema);
 
 class User implements ICrud<IUser> {
   async selectByid(params: Record<string, unknown>): Promise<IUser | null> {
-    const article = await UserModel.findOne(params);
-    return article;
+    const user = await UserModel.findOne(params);
+    return user;
   }
 
   async selectAll(): Promise<IUser[]> {
-    const articles = await UserModel.find();
-    return articles;
+    const users = await UserModel.find({});
+    return users;
   }
 
   async select(params: Record<string, unknown>): Promise<IUser[]> {
-    const articles = await UserModel.find(params);
-    return articles;
+    const users = await UserModel.find(params);
+    return users;
   }
 
   async insert(ele: IUser): Promise<IUser> {
-    const article = new UserModel(ele);
-    await article.save();
-    return article;
+    const user = new UserModel(ele);
+    await user.save();
+    return user;
   }
 
   async update(ele: Partial<IUser>, params: Record<string, unknown>): Promise<number> {

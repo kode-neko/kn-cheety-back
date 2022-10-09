@@ -51,6 +51,7 @@
   },
   "dependencies": {
     "@eslint/create-config": "^0.3.1",
+    "@types/bcrypt": "^5.0.0",
     "@types/chalk": "^2.2.0",
     "@types/express": "^4.17.14",
     "@types/figlet": "^1.5.5",
@@ -60,6 +61,7 @@
     "@types/node": "^18.7.23",
     "@types/sequelize": "^4.28.14",
     "@types/yargs": "^17.0.13",
+    "bcrypt": "^5.1.0",
     "bootstrap": "^5.2.1",
     "bootstrap-icons": "^1.9.1",
     "chalk": "^5.1.0",
