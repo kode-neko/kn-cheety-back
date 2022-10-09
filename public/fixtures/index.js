@@ -1,2 +1,5 @@
-export { default as articlesFixtures } from './articles.json' assert { type: 'json' };
-export { default as usersFixtures } from './users.json' assert { type: 'json' };
+import { createRequire } from 'module';
+const requiree = createRequire('./');
+const articlesFixtures = requiree('./articles.json');
+const usersFixtures = requiree('./users.json');
+export { articlesFixtures, usersFixtures };

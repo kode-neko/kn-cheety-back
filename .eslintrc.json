@@ -34,6 +34,7 @@
     {
       "files": [
         "./*.ts",
+        "./fixtures/*.ts",
         "./src/**/*.test.ts",
         "./cypress.config.ts",
         "./cypress/**/*.ts"
