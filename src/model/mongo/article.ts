@@ -44,13 +44,27 @@ class Article implements ICrud<IArticle> {
     return article;
   }
 
-  async selectAll(): Promise<IArticle[]> {
-    const articles = await ArticleModel.find({});
+  async selectAll(skip?: number, limit?: number): Promise<IArticle[]> {
+    let articles: IArticle[];
+    if (skip && limit) {
+      articles = await ArticleModel.find({}).skip(skip).limit(limit);
+    } else {
+      articles = await ArticleModel.find({});
+    }
     return articles;
   }
 
-  async select(params: Record<string, unknown>): Promise<IArticle[]> {
-    const articles = await ArticleModel.find(params);
+  async select(
+    params: Record<string, unknown>,
+    skip?: number,
+    limit?: number,
+  ): Promise<IArticle[]> {
+    let articles: IArticle[];
+    if (skip && limit) {
+      articles = await ArticleModel.find(params).skip(skip).limit(limit);
+    } else {
+      articles = await ArticleModel.find(params);
+    }
     return articles;
   }
 

@@ -37,13 +37,27 @@ class User implements ICrud<IUser> {
     return user;
   }
 
-  async selectAll(): Promise<IUser[]> {
-    const users = await UserModel.find({});
+  async selectAll(skip?: number, limit?: number): Promise<IUser[]> {
+    let users: IUser[];
+    if (skip && limit) {
+      users = await UserModel.find({}).skip(skip).limit(limit);
+    } else {
+      users = await UserModel.find({});
+    }
     return users;
   }
 
-  async select(params: Record<string, unknown>): Promise<IUser[]> {
-    const users = await UserModel.find(params);
+  async select(
+    params: Record<string, unknown>,
+    skip?: number,
+    limit?: number,
+  ): Promise<IUser[]> {
+    let users: IUser[];
+    if (skip && limit) {
+      users = await UserModel.find(params).skip(skip).limit(limit);
+    } else {
+      users = await UserModel.find(params);
+    }
     return users;
   }
 

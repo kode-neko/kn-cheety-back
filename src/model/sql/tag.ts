@@ -7,13 +7,27 @@ class Tag implements ICrud<ITag> {
     return tag;
   }
 
-  async selectAll(): Promise<ITag[]> {
-    const tags = await TagModel.findAll();
-    return tags;
+  async selectAll(skip?: number, limit?: number): Promise<ITag[]> {
+    let users: ITag[];
+    if (skip && limit) {
+      users = await TagModel.findAll({ offset: skip, limit });
+    } else {
+      users = await TagModel.findAll();
+    }
+    return users;
   }
 
-  async select(params: Record<string, unknown>): Promise<ITag[]> {
-    const tags = await TagModel.findAll(params);
+  async select(
+    params: Record<string, unknown>,
+    skip?: number,
+    limit?: number,
+  ): Promise<ITag[]> {
+    let tags: ITag[];
+    if (skip && limit) {
+      tags = await TagModel.findAll({ ...params, offset: skip, limit });
+    } else {
+      tags = await TagModel.findAll(params);
+    }
     return tags;
   }
 

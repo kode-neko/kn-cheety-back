@@ -7,13 +7,27 @@ class ArticleLine implements ICrud<IArticleLine> {
     return articleLine;
   }
 
-  async selectAll(): Promise<IArticleLine[]> {
-    const articleLines = await ArticleLineModel.findAll();
-    return articleLines;
+  async selectAll(skip?: number, limit?: number): Promise<IArticleLine[]> {
+    let users: IArticleLine[];
+    if (skip && limit) {
+      users = await ArticleLineModel.findAll({ offset: skip, limit });
+    } else {
+      users = await ArticleLineModel.findAll();
+    }
+    return users;
   }
 
-  async select(params: Record<string, unknown>): Promise<IArticleLine[]> {
-    const articleLines = await ArticleLineModel.findAll(params);
+  async select(
+    params: Record<string, unknown>,
+    skip?: number,
+    limit?: number,
+  ): Promise<IArticleLine[]> {
+    let articleLines: IArticleLine[];
+    if (skip && limit) {
+      articleLines = await ArticleLineModel.findAll({ ...params, offset: skip, limit });
+    } else {
+      articleLines = await ArticleLineModel.findAll(params);
+    }
     return articleLines;
   }
 

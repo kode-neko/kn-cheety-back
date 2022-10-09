@@ -1,4 +1,7 @@
 import { Request, Response } from 'express';
+import { ArticleModel } from '../model/mongo/index.js';
+
+const article = new ArticleModel();
 
 function getArticle(req: Request, res: Response): void {
   res.status(200).json(req.body);
