@@ -1,6 +1,7 @@
-import { queryPromise } from './connect.js';
+import { Connection } from 'mysql';
+import { queryPromise } from './utils.js';
 
-async function create():Promise<void> {
+async function create(con: Connection):Promise<void> {
   const createUser = `
     CREATE TABLE IF NOT EXISTS user(
       name VARCHAR(50) NOT NULL,
@@ -63,11 +64,11 @@ async function create():Promise<void> {
     )
   `;
 
-  const userT = queryPromise(createUser);
-  const articleT = queryPromise(createArticle);
-  const articleLineT = queryPromise(createArticleLine);
-  const tagT = queryPromise(createTag);
-  const tagArticleT = queryPromise(createTagArticle);
+  const userT = queryPromise(con, createUser);
+  const articleT = queryPromise(con, createArticle);
+  const articleLineT = queryPromise(con, createArticleLine);
+  const tagT = queryPromise(con, createTag);
+  const tagArticleT = queryPromise(con, createTagArticle);
 
   await Promise.all([userT, articleT, articleLineT, tagT, tagArticleT]);
 }

@@ -1,8 +1,8 @@
 import {
   Schema, model, Types,
 } from 'mongoose';
+import { checkIdCount, checkIdObj } from '../../utils/index.js';
 import ICrud from '../ICrud.js';
-import { checkIdCount, checkIdObj } from './decorator/index.js';
 
 interface IArticle {
   id?: Types.ObjectId;

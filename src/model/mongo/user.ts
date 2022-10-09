@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+import { checkIdCount, checkIdObj } from '../../utils/index.js';
 import ICrud from '../ICrud.js';
 
 interface IUser {
@@ -30,6 +31,7 @@ const userSchema = new Schema<IUser>({
 const UserModel = model('user', userSchema);
 
 class User implements ICrud<IUser> {
+  @checkIdObj
   async selectByid(params: Record<string, unknown>): Promise<IUser | null> {
     const user = await UserModel.findOne(params);
     return user;
@@ -45,17 +47,20 @@ class User implements ICrud<IUser> {
     return users;
   }
 
+  @checkIdObj
   async insert(ele: IUser): Promise<IUser> {
     const user = new UserModel(ele);
     await user.save();
     return user;
   }
 
+  @checkIdCount
   async update(ele: Partial<IUser>, params: Record<string, unknown>): Promise<number> {
     const res = await UserModel.updateOne(params, ele);
     return res.modifiedCount;
   }
 
+  @checkIdCount
   async delete(params: Record<string, unknown>): Promise<number> {
     const res = await UserModel.deleteOne(params);
     return res.deletedCount;

@@ -3,7 +3,7 @@ import { Sequelize } from 'sequelize';
 import { faker } from '@faker-js/faker';
 import { Connection } from 'mysql';
 import { console, envSelect } from '../../../utils';
-import { IArticle, Article } from '../../../model/sql/article';
+import { IArticle, Article } from '../../../model/sql/index.js';
 import {
   getCon,
   create,
@@ -12,6 +12,7 @@ import {
   populate,
 } from '../../../utils/sql';
 import { getConSequalize } from '../../../model/sql';
+import { initialize } from '../../../utils/sql/db';
 
 describe('Model SQL Article', () => {
   let article: Article;
@@ -24,7 +25,8 @@ describe('Model SQL Article', () => {
       dotenv.config({ path: pathDotEnv });
       conSql = getCon();
       conSequalize = getConSequalize();
-      await create();
+      await create(conSql);
+      initialize();
     } catch (err) {
       console.error(err);
     }
@@ -33,7 +35,7 @@ describe('Model SQL Article', () => {
   beforeEach(async () => {
     try {
       article = new Article();
-      await populate();
+      await populate(conSql);
     } catch (err) {
       console.error(err);
     }
@@ -41,7 +43,7 @@ describe('Model SQL Article', () => {
 
   afterEach(async () => {
     try {
-      await deleteData();
+      await deleteData(conSql);
     } catch (err) {
       console.error(err);
     }
@@ -49,7 +51,7 @@ describe('Model SQL Article', () => {
 
   afterAll(async () => {
     try {
-      await drop();
+      await drop(conSql);
     } catch (err) {
       console.error(err);
     } finally {

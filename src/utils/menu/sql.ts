@@ -91,12 +91,13 @@ function menu() {
     },
   ])
     .then(async (answer) => {
+      const con = getCon();
       try {
-        await (choices as any)[answer.option].func();
+        await (choices as any)[answer.option].func(con);
         console.log('se fini');
       } catch (err) {
         console.error((err as MysqlError).message);
-        await drop();
+        await drop(con);
       } finally {
         getCon().end();
       }
