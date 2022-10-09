@@ -1,7 +1,29 @@
 import mysql, { Connection, FieldInfo, MysqlError } from 'mysql';
+import { Sequelize } from 'sequelize';
 import {
   initArticleLineModel, initArticleModel, initTagArticleModel, initTagModel, initUserModel,
 } from '../../../model/sql/index.js';
+
+function getConSeq():Sequelize {
+  const {
+    DB_NAME, DB_ADMIN, DB_ADMIN_PASS, DB_SQL_HOST, DB_SQL_PORT,
+  } = process.env;
+
+  const connect = new Sequelize(
+    DB_NAME || '',
+    DB_ADMIN || '',
+    DB_ADMIN_PASS || '',
+    {
+      host: DB_SQL_HOST,
+      port: Number(DB_SQL_PORT),
+      dialect: 'mariadb',
+    },
+  );
+
+  return connect;
+}
+
+export default getCon;
 
 function initialize() {
   initTagModel();
@@ -67,6 +89,7 @@ async function queryInsertPromise<T>(
 }
 
 export {
+  getConSeq,
   initialize,
   getCon,
   queryPromise,

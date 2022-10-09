@@ -11,12 +11,11 @@ import {
   drop,
   populate,
 } from '../../../utils/sql';
-import { getConSequalize } from '../../../model/sql';
-import { initialize } from '../../../utils/sql/db';
+import { getConSeq, initialize } from '../../../utils/sql/db';
 
 describe('Model SQL Article', () => {
   let article: Article;
-  let conSequalize: Sequelize;
+  let conSeq: Sequelize;
   let conSql: Connection;
 
   beforeAll(async () => {
@@ -24,7 +23,7 @@ describe('Model SQL Article', () => {
       const pathDotEnv = envSelect('dev');
       dotenv.config({ path: pathDotEnv });
       conSql = getCon();
-      conSequalize = getConSequalize();
+      conSeq = getConSeq();
       await create(conSql);
       initialize();
     } catch (err) {
@@ -55,7 +54,7 @@ describe('Model SQL Article', () => {
     } catch (err) {
       console.error(err);
     } finally {
-      await conSequalize.close();
+      await conSeq.close();
       await conSql.end();
     }
   });

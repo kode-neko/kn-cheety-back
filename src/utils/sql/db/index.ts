@@ -1,4 +1,6 @@
 export {
+  getConSeq,
+  initialize,
   getCon,
   queryPromise,
   queryValuePromise,
@@ -10,4 +12,3 @@ export { default as deleteAll } from './deleteAll.js';
 export { default as deleteData } from './deleteData.js';
 export { default as drop } from './drop.js';
 export { default as populate } from './populate.js';
-export { default as initialize } from './initialize.js';

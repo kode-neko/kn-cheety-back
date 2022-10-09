@@ -2,7 +2,7 @@
 import {
   Model, DataTypes, InferAttributes, InferCreationAttributes,
 } from 'sequelize';
-import getCon from '../connect.js';
+import { getConSeq } from '../../../utils/sql/index.js';
 
 interface ITag {
   name: string;
@@ -23,7 +23,7 @@ function initTagModel() {
       primaryKey: true,
     },
   }, {
-    sequelize: getCon(),
+    sequelize: getConSeq(),
     modelName: 'tag',
   });
 

@@ -2,7 +2,7 @@
 import {
   Model, DataTypes, InferAttributes, InferCreationAttributes, ForeignKey,
 } from 'sequelize';
-import getCon from '../connect.js';
+import { getConSeq } from '../../../utils/sql/index.js';
 import { UserModel } from './user.js';
 
 interface IArticle {
@@ -41,7 +41,7 @@ function initArticleModel() {
       allowNull: false,
     },
   }, {
-    sequelize: getCon(),
+    sequelize: getConSeq(),
     modelName: 'article',
   });
 

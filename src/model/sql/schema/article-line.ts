@@ -2,8 +2,8 @@
 import {
   Model, DataTypes, InferAttributes, InferCreationAttributes, ForeignKey,
 } from 'sequelize';
+import { getConSeq } from '../../../utils/sql/index.js';
 import { ArticleModel } from './article.js';
-import getCon from '../connect.js';
 
 interface IArticleLine {
   id?: number;
@@ -40,7 +40,7 @@ function initArticleLineModel() {
       allowNull: false,
     },
   }, {
-    sequelize: getCon(),
+    sequelize: getConSeq(),
     modelName: 'article_line',
   });
 

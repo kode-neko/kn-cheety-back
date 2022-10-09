@@ -2,7 +2,7 @@
 import {
   Model, DataTypes, InferAttributes, InferCreationAttributes,
 } from 'sequelize';
-import getCon from '../connect.js';
+import { getConSeq } from '../../../utils/sql/index.js';
 
 interface IUser {
   name: string;
@@ -44,7 +44,7 @@ function initUserModel() {
       allowNull: false,
     },
   }, {
-    sequelize: getCon(),
+    sequelize: getConSeq(),
     modelName: 'user',
   });
 

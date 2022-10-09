@@ -1,7 +1,7 @@
 export {
   getURL,
   getClient,
-} from './connect.js';
+} from './utils.js';
 export { default as create } from './create.js';
 export { default as createAll } from './createAll.js';
 export { default as deleteAll } from './deleteAll.js';

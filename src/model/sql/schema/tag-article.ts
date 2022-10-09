@@ -3,7 +3,7 @@ import {
   Model, InferAttributes, InferCreationAttributes, ForeignKey,
 } from 'sequelize';
 import { ArticleModel } from './article.js';
-import getCon from '../connect.js';
+import { getConSeq } from '../../../utils/sql/index.js';
 import { TagModel } from './tag.js';
 
 interface ITagArticle {
@@ -22,7 +22,7 @@ InferCreationAttributes<TagArticleModel>
 
 function initTagArticleModel() {
   TagArticleModel.init({}, {
-    sequelize: getCon(),
+    sequelize: getConSeq(),
     modelName: 'tag_article',
   });
 

@@ -15,9 +15,6 @@ export {
   UserModel,
   initUserModel,
 } from './schema/index.js';
-export {
-  default as getConSequalize,
-} from './connect.js';
 export { default as ArticleLine } from './article-line.js';
 export { default as Article } from './article.js';
 export { default as TagArticle } from './tag-article.js';
