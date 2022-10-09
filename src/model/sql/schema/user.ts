@@ -1,8 +1,7 @@
 /* eslint-disable max-classes-per-file */
 import {
-  Model, DataTypes, InferAttributes, InferCreationAttributes,
+  Sequelize, Model, DataTypes, InferAttributes, InferCreationAttributes,
 } from 'sequelize';
-import { getConSeq } from '../../../utils/sql/index.js';
 
 interface IUser {
   name: string;
@@ -24,8 +23,8 @@ InferCreationAttributes<UserModel>
   declare salt: string;
 }
 
-function initUserModel() {
-  UserModel.init({
+async function initUserModel(con: Sequelize) {
+  await UserModel.init({
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -44,15 +43,21 @@ function initUserModel() {
       allowNull: false,
     },
   }, {
-    sequelize: getConSeq(),
+    sequelize: con,
     modelName: 'user',
+    tableName: 'user',
+    updatedAt: false,
+    createdAt: false,
   });
+}
 
-  UserModel.sync();
+async function syncUser() {
+  await UserModel.sync();
 }
 
 export {
   IUser,
   UserModel,
   initUserModel,
+  syncUser,
 };

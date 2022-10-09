@@ -1,5 +1,7 @@
 export {
   getConSeq,
+  initialize,
+  syncAll,
   getCon,
   queryPromise,
   queryValuePromise,

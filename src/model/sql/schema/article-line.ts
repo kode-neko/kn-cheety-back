@@ -1,8 +1,7 @@
 /* eslint-disable max-classes-per-file */
 import {
-  Model, DataTypes, InferAttributes, InferCreationAttributes, ForeignKey,
+  Sequelize, Model, DataTypes, InferAttributes, InferCreationAttributes, ForeignKey,
 } from 'sequelize';
-import { getConSeq } from '../../../utils/sql/index.js';
 import { ArticleModel } from './article.js';
 
 interface IArticleLine {
@@ -25,8 +24,8 @@ InferCreationAttributes<ArticleLineModel>
   declare article: ForeignKey<ArticleModel['id']>;
 }
 
-function initArticleLineModel() {
-  ArticleLineModel.init({
+async function initArticleLineModel(con: Sequelize) {
+  await ArticleLineModel.init({
     id: {
       type: DataTypes.NUMBER,
       allowNull: false,
@@ -40,16 +39,23 @@ function initArticleLineModel() {
       allowNull: false,
     },
   }, {
-    sequelize: getConSeq(),
+    sequelize: con,
     modelName: 'article_line',
+    tableName: 'article_line',
+    updatedAt: false,
+    createdAt: false,
   });
 
-  ArticleLineModel.belongsTo(ArticleModel, { targetKey: 'id' });
-  ArticleLineModel.sync();
+  await ArticleLineModel.belongsTo(ArticleModel, { foreignKey: 'article', targetKey: 'id' });
+}
+
+async function syncArticleLine() {
+  await ArticleLineModel.sync();
 }
 
 export {
   IArticleLine,
   ArticleLineModel,
   initArticleLineModel,
+  syncArticleLine,
 };

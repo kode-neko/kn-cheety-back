@@ -5,13 +5,15 @@ import { Connection } from 'mysql';
 import { console, envSelect } from '../../../utils';
 import { IArticle, Article } from '../../../model/sql/index.js';
 import {
+  getConSeq,
+  initialize,
   getCon,
   create,
   deleteData,
   drop,
   populate,
+  syncAll,
 } from '../../../utils/sql';
-import { getConSeq, initialize } from '../../../utils/sql/db';
 
 describe('Model SQL Article', () => {
   let article: Article;
@@ -25,7 +27,7 @@ describe('Model SQL Article', () => {
       conSql = getCon();
       conSeq = getConSeq();
       await create(conSql);
-      initialize();
+      await initialize(conSeq);
     } catch (err) {
       console.error(err);
     }
@@ -33,8 +35,9 @@ describe('Model SQL Article', () => {
 
   beforeEach(async () => {
     try {
-      article = new Article();
       await populate(conSql);
+      await syncAll();
+      article = new Article();
     } catch (err) {
       console.error(err);
     }

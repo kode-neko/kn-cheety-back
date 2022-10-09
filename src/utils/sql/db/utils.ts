@@ -1,7 +1,16 @@
 import mysql, { Connection, FieldInfo, MysqlError } from 'mysql';
 import { Sequelize } from 'sequelize';
 import {
-  initArticleLineModel, initArticleModel, initTagArticleModel, initTagModel, initUserModel,
+  initArticleLineModel,
+  initArticleModel,
+  initTagArticleModel,
+  initTagModel,
+  initUserModel,
+  syncArticle,
+  syncArticleLine,
+  syncTag,
+  syncTagArticle,
+  syncUser,
 } from '../../../model/sql/index.js';
 
 function getConSeq():Sequelize {
@@ -23,14 +32,20 @@ function getConSeq():Sequelize {
   return connect;
 }
 
-export default getCon;
+async function initialize(con: Sequelize) {
+  await initTagModel(con);
+  await initUserModel(con);
+  await initArticleModel(con);
+  await initArticleLineModel(con);
+  await initTagArticleModel(con);
+}
 
-function initialize() {
-  initTagModel();
-  initUserModel();
-  initArticleModel();
-  initArticleLineModel();
-  initTagArticleModel();
+async function syncAll() {
+  await syncArticleLine();
+  await syncArticle();
+  await syncTagArticle();
+  await syncTag();
+  await syncUser();
 }
 
 function getCon(): Connection {
@@ -91,6 +106,7 @@ async function queryInsertPromise<T>(
 export {
   getConSeq,
   initialize,
+  syncAll,
   getCon,
   queryPromise,
   queryValuePromise,

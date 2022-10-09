@@ -1,8 +1,7 @@
 /* eslint-disable max-classes-per-file */
 import {
-  Model, DataTypes, InferAttributes, InferCreationAttributes, ForeignKey,
+  Sequelize, Model, DataTypes, InferAttributes, InferCreationAttributes, ForeignKey,
 } from 'sequelize';
-import { getConSeq } from '../../../utils/sql/index.js';
 import { UserModel } from './user.js';
 
 interface IArticle {
@@ -25,8 +24,8 @@ InferCreationAttributes<ArticleModel>
   declare lang: string;
 }
 
-function initArticleModel() {
-  ArticleModel.init({
+async function initArticleModel(con: Sequelize) {
+  await ArticleModel.init({
     id: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -41,16 +40,23 @@ function initArticleModel() {
       allowNull: false,
     },
   }, {
-    sequelize: getConSeq(),
+    sequelize: con,
     modelName: 'article',
+    tableName: 'article',
+    updatedAt: false,
+    createdAt: false,
   });
 
-  ArticleModel.belongsTo(UserModel, { targetKey: 'name' });
-  ArticleModel.sync();
+  await ArticleModel.belongsTo(UserModel, { foreignKey: 'author', targetKey: 'name' });
+}
+
+async function syncArticle() {
+  await ArticleModel.sync();
 }
 
 export {
   IArticle,
   ArticleModel,
   initArticleModel,
+  syncArticle,
 };

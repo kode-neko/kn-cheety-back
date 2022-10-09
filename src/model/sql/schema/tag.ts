@@ -1,8 +1,7 @@
 /* eslint-disable max-classes-per-file */
 import {
-  Model, DataTypes, InferAttributes, InferCreationAttributes,
+  Sequelize, Model, DataTypes, InferAttributes, InferCreationAttributes,
 } from 'sequelize';
-import { getConSeq } from '../../../utils/sql/index.js';
 
 interface ITag {
   name: string;
@@ -15,7 +14,7 @@ InferCreationAttributes<TagModel>
   declare name: string;
 }
 
-function initTagModel() {
+async function initTagModel(con: Sequelize) {
   TagModel.init({
     name: {
       type: DataTypes.STRING,
@@ -23,15 +22,21 @@ function initTagModel() {
       primaryKey: true,
     },
   }, {
-    sequelize: getConSeq(),
+    sequelize: con,
     modelName: 'tag',
+    tableName: 'tag',
+    updatedAt: false,
+    createdAt: false,
   });
+}
 
-  TagModel.sync();
+async function syncTag() {
+  await TagModel.sync();
 }
 
 export {
   ITag,
   TagModel,
   initTagModel,
+  syncTag,
 };

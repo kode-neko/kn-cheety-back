@@ -1,9 +1,8 @@
 /* eslint-disable max-classes-per-file */
 import {
-  Model, InferAttributes, InferCreationAttributes, ForeignKey,
+  Sequelize, Model, InferAttributes, InferCreationAttributes, ForeignKey,
 } from 'sequelize';
 import { ArticleModel } from './article.js';
-import { getConSeq } from '../../../utils/sql/index.js';
 import { TagModel } from './tag.js';
 
 interface ITagArticle {
@@ -20,17 +19,23 @@ InferCreationAttributes<TagArticleModel>
   declare tag: ForeignKey<TagModel['name']>;
 }
 
-function initTagArticleModel() {
-  TagArticleModel.init({}, {
-    sequelize: getConSeq(),
+async function initTagArticleModel(con: Sequelize) {
+  await TagArticleModel.init({}, {
+    sequelize: con,
     modelName: 'tag_article',
+    tableName: 'tag_article',
+    updatedAt: false,
+    createdAt: false,
   });
+}
 
-  TagArticleModel.sync();
+async function syncTagArticle() {
+  await TagArticleModel.sync();
 }
 
 export {
   ITagArticle,
   TagArticleModel,
   initTagArticleModel,
+  syncTagArticle,
 };
