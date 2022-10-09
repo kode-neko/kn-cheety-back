@@ -1,15 +1,11 @@
 import { Sequelize } from 'sequelize';
-import { envSelect } from '../../utils/index.js';
-
-envSelect('dev');
-
-const {
-  DB_NAME, DB_USER, DB_USER_PASS, DB_SQL_HOST, DB_SQL_PORT,
-} = process.env;
 
 let connect: Sequelize;
 
 function getCon() {
+  const {
+    DB_NAME, DB_USER, DB_USER_PASS, DB_SQL_HOST, DB_SQL_PORT,
+  } = process.env;
   if (!connect) {
     connect = new Sequelize(
       DB_NAME || '',

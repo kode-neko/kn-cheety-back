@@ -1,33 +1,5 @@
-/* eslint-disable max-classes-per-file */
-import {
-  Model, DataTypes, InferAttributes, InferCreationAttributes,
-} from 'sequelize';
 import ICrud from '../ICrud.js';
-import getCon from './connect.js';
-
-interface ITag {
-  name: string;
-}
-
-class TagModel extends Model<
-InferAttributes<TagModel>,
-InferCreationAttributes<TagModel>
-> implements ITag {
-  declare name: string;
-}
-
-TagModel.init({
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    primaryKey: true,
-  },
-}, {
-  sequelize: getCon(),
-  modelName: 'tag',
-});
-
-TagModel.sync();
+import { ITag, TagModel } from './schema/index.js';
 
 class Tag implements ICrud<ITag> {
   async selectByid(params: Record<string, unknown>): Promise<ITag | null> {
@@ -61,8 +33,4 @@ class Tag implements ICrud<ITag> {
   }
 }
 
-export {
-  ITag,
-  TagModel,
-  Tag,
-};
+export default Tag;

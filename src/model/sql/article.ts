@@ -1,53 +1,5 @@
-/* eslint-disable max-classes-per-file */
-import {
-  Model, DataTypes, InferAttributes, InferCreationAttributes, ForeignKey,
-} from 'sequelize';
 import ICrud from '../ICrud.js';
-import getCon from './connect.js';
-import { UserModel } from './user.js';
-
-interface IArticle {
-  id?: number;
-  title: string;
-  author: string;
-  lang: string;
-}
-
-class ArticleModel extends Model<
-InferAttributes<ArticleModel>,
-InferCreationAttributes<ArticleModel>
-> implements IArticle {
-  declare id: number;
-
-  declare title: string;
-
-  declare author: ForeignKey<UserModel['name']>;
-
-  declare lang: string;
-}
-
-ArticleModel.init({
-  id: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    primaryKey: true,
-  },
-  title: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  lang: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-}, {
-  sequelize: getCon(),
-  modelName: 'article',
-});
-
-ArticleModel.belongsTo(UserModel, { targetKey: 'name' });
-
-ArticleModel.sync();
+import { IArticle, ArticleModel } from './schema/index.js';
 
 class Article implements ICrud<IArticle> {
   async selectByid(params: Record<string, unknown>): Promise<IArticle | null> {
@@ -81,8 +33,4 @@ class Article implements ICrud<IArticle> {
   }
 }
 
-export {
-  IArticle,
-  ArticleModel,
-  Article,
-};
+export default Article;

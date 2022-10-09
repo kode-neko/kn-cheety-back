@@ -1,52 +1,5 @@
-/* eslint-disable max-classes-per-file */
-import {
-  Model, DataTypes, InferAttributes, InferCreationAttributes, ForeignKey,
-} from 'sequelize';
 import ICrud from '../ICrud.js';
-import { ArticleModel } from './article.js';
-import getCon from './connect.js';
-
-interface IArticleLine {
-  id?: number;
-  content: string;
-  lang: string;
-  article: number;
-}
-
-class ArticleLineModel extends Model<
-InferAttributes<ArticleLineModel>,
-InferCreationAttributes<ArticleLineModel>
-> implements IArticleLine {
-  declare id: number;
-
-  declare content: string;
-
-  declare lang: string;
-
-  declare article: ForeignKey<ArticleModel['id']>;
-}
-
-ArticleLineModel.init({
-  id: {
-    type: DataTypes.NUMBER,
-    allowNull: false,
-    primaryKey: true,
-  },
-  content: {
-    type: DataTypes.TEXT,
-  },
-  lang: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-}, {
-  sequelize: getCon(),
-  modelName: 'article_line',
-});
-
-ArticleLineModel.belongsTo(ArticleModel, { targetKey: 'id' });
-
-ArticleLineModel.sync();
+import { IArticleLine, ArticleLineModel } from './schema/index.js';
 
 class ArticleLine implements ICrud<IArticleLine> {
   async selectByid(params: Record<string, unknown>): Promise<IArticleLine | null> {
@@ -80,8 +33,4 @@ class ArticleLine implements ICrud<IArticleLine> {
   }
 }
 
-export {
-  IArticleLine,
-  ArticleLineModel,
-  ArticleLine,
-};
+export default ArticleLine;

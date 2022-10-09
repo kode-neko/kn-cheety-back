@@ -1,76 +1,79 @@
+import dotenv from 'dotenv';
 import { Sequelize } from 'sequelize';
-import {faker} from '@faker-js/faker'
-import {getConSequalize} from '../../../model/sql'
-import { console } from '../../../utils';
-import { IArticle, Article } from '../../src/model/sql/index.js'
-import {   
+import { faker } from '@faker-js/faker';
+import { Connection } from 'mysql';
+import { console, envSelect } from '../../../utils';
+import { IArticle, Article } from '../../../model/sql/article';
+import {
+  getCon,
   create,
-  deleteFrom,
-  populate,
+  deleteData,
   drop,
-  getCon as getConSql,
-  menu, 
-} from '../../../scripts/sql';
-import Connection from 'mysql/lib/Connection';
+  populate,
+} from '../../../utils/sql';
+import { getConSequalize } from '../../../model/sql';
 
 describe('Model SQL Article', () => {
-  let article = new Article();
+  let article: Article;
   let conSequalize: Sequelize;
   let conSql: Connection;
 
   beforeAll(async () => {
-    try{
-      conSequalize = await getConSequalize();
-      conSql = await getConSql();
+    try {
+      const pathDotEnv = envSelect('dev');
+      dotenv.config({ path: pathDotEnv });
+      conSql = getCon();
+      conSequalize = getConSequalize();
       await create();
-    } catch(err) {
+    } catch (err) {
       console.error(err);
     }
   });
 
   beforeEach(async () => {
-    try{
+    try {
+      article = new Article();
       await populate();
-    } catch(err) {
-      console.error(err)
+    } catch (err) {
+      console.error(err);
     }
   });
 
   afterEach(async () => {
-    try{
-      await deleteFrom();
-    } catch(err) {
-      console.error(err)
+    try {
+      await deleteData();
+    } catch (err) {
+      console.error(err);
     }
   });
 
   afterAll(async () => {
-    try{
+    try {
       await drop();
-    }catch(err) {
-      console.error(err)
+    } catch (err) {
+      console.error(err);
     } finally {
       await conSequalize.close();
       await conSql.end();
     }
-  })
+  });
 
   it('Model SQL selectAll', async () => {
     const articles = await article.selectAll();
     expect(articles).toHaveLength(3);
   });
-
+/*
   it('Model SQL selectByid', async () => {
     const articles = await article.selectAll();
-    const id = articles[0].id;
-    const articleById = await article.selectByid({id: articles[0].id}); 
+    const { id } = articles[0];
+    const articleById = await article.selectByid({ id: articles[0].id });
     expect(articleById?.id).toBe(id);
   });
 
   it('Model SQL select by param', async () => {
     const articles = await article.selectAll();
-    const title = articles[0].title;
-    const articleByTitle = await article.select({title});
+    const { title } = articles[0];
+    const articleByTitle = await article.select({ title });
     expect(articleByTitle[0].title || '').toBe(title);
   });
 
@@ -86,16 +89,16 @@ describe('Model SQL Article', () => {
 
   it('Model SQL update', async () => {
     const articles = await article.selectAll();
-    const updates = {title: faker.lorem.words()};
-    const afected = await article.update(updates, {id: articles[0].id})
+    const updates = { title: faker.lorem.words() };
+    const afected = await article.update(updates, { id: articles[0].id });
     expect(afected).toBeTruthy();
   });
 
   it('Model SQL delete', async () => {
     const articles = await article.selectAll();
-    const afected = await article.delete({_id: articles[0].id});
-    const notAfected = await article.delete({_id: faker.datatype.uuid()});
+    const afected = await article.delete({ _id: articles[0].id });
+    const notAfected = await article.delete({ _id: faker.datatype.uuid() });
     expect(afected).toBeTruthy();
     expect(notAfected).toBeFalsy();
-  });
+  }); */
 });

@@ -1,32 +1,5 @@
-/* eslint-disable max-classes-per-file */
-import {
-  Model, InferAttributes, InferCreationAttributes, ForeignKey,
-} from 'sequelize';
 import ICrud from '../ICrud.js';
-import { ArticleModel } from './article.js';
-import getCon from './connect.js';
-import { TagModel } from './tag.js';
-
-interface ITagArticle {
-  article: number;
-  tag: string;
-}
-
-class TagArticleModel extends Model<
-InferAttributes<TagArticleModel>,
-InferCreationAttributes<TagArticleModel>
-> implements ITagArticle {
-  declare article: ForeignKey<ArticleModel['id']>;
-
-  declare tag: ForeignKey<TagModel['name']>;
-}
-
-TagArticleModel.init({}, {
-  sequelize: getCon(),
-  modelName: 'tag_article',
-});
-
-TagArticleModel.sync();
+import { ITagArticle, TagArticleModel } from './schema/index.js';
 
 class TagArticle implements ICrud<ITagArticle> {
   async selectByid(params: Record<string, unknown>): Promise<ITagArticle | null> {
@@ -60,8 +33,4 @@ class TagArticle implements ICrud<ITagArticle> {
   }
 }
 
-export {
-  ITagArticle,
-  TagArticleModel,
-  TagArticle,
-};
+export default TagArticle;

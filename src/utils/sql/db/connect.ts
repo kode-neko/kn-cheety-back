@@ -1,12 +1,11 @@
 import mysql, { Connection, FieldInfo, MysqlError } from 'mysql';
 
-const {
-  DB_NAME, DB_ADMIN, DB_ADMIN_PASS, DB_SQL_HOST, DB_SQL_PORT,
-} = process.env;
-
 let con: Connection;
 
 function getCon(): Connection {
+  const {
+    DB_NAME, DB_ADMIN, DB_ADMIN_PASS, DB_SQL_HOST, DB_SQL_PORT,
+  } = process.env;
   if (!con) {
     con = mysql.createConnection({
       host: DB_SQL_HOST,
