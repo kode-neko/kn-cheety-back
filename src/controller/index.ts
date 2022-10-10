@@ -1,5 +1,5 @@
 import {
-  getArticle,
+  findArticle,
   getArticleId,
   postArticle,
   putArticle,
@@ -21,7 +21,7 @@ import {
 } from './auth.js';
 
 export {
-  getArticle,
+  findArticle,
   getArticleId,
   postArticle,
   putArticle,

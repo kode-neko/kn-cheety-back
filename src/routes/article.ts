@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import {
-  getArticle,
+  findArticle,
   getArticleId,
   postArticle,
   putArticle,
@@ -9,7 +9,7 @@ import {
 
 const router = Router();
 
-router.get('/', getArticle);
+router.post('/', findArticle);
 router.get('/:id', getArticleId);
 router.post('/', postArticle);
 router.put('/', putArticle);
