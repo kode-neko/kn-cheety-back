@@ -1,4 +1,4 @@
-import {
+export {
   findArticle,
   getArticleId,
   postArticle,
@@ -6,32 +6,16 @@ import {
   deleteArticle,
 } from './article.js';
 
-import {
-  getUser,
+export {
+  findUser,
   getUserId,
   postUser,
   putUser,
   deleteUser,
 } from './user.js';
 
-import {
+export {
   signup,
   login,
   logout,
 } from './auth.js';
-
-export {
-  findArticle,
-  getArticleId,
-  postArticle,
-  putArticle,
-  deleteArticle,
-  getUser,
-  getUserId,
-  postUser,
-  putUser,
-  deleteUser,
-  signup,
-  login,
-  logout,
-};

@@ -9,7 +9,7 @@ import {
 
 const router = Router();
 
-router.post('/', findArticle);
+router.post('/find', findArticle);
 router.get('/:id', getArticleId);
 router.post('/', postArticle);
 router.put('/', putArticle);

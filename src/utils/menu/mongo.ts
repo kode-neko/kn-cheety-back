@@ -5,7 +5,6 @@ import inquirer from 'inquirer';
 import { MongoError } from 'mongodb';
 import console from '../console.js';
 import envSelect from '../envSelect.js';
-import getEnv from '../getEnv.js';
 import {
   getURL,
   getClient,
@@ -17,7 +16,7 @@ import {
   populate,
 } from '../mongo/index.js';
 
-const path = envSelect(getEnv());
+const path = envSelect();
 dotenv.config({ path });
 
 const choices = {
@@ -95,14 +94,13 @@ function menu() {
     const client = await getClient(url);
     const db = client.db();
     try {
-      (choices as any)[answer.option].func(db);
+      await (choices as any)[answer.option].func(db);
     } catch (err) {
-      console.error((err as MongoError).errmsg);
+      console.error(err);
       await drop(db);
     } finally {
       client.close();
     }
-    process.exit(1);
   });
 }
 

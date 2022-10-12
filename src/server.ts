@@ -6,10 +6,9 @@ import {
 } from './routes/index.js';
 
 const app = express();
-app.set('view engine', 'mustache');
+app.use(express.json());
 app.use('/article', articleRouter);
 app.use('/user', userRouter);
 app.use('/auth', authRouter);
-app.use(express.json());
 
 export default app;

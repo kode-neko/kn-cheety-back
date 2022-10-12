@@ -22,23 +22,23 @@ function getArticleId(req: Request, res: Response, next: NextFunction): void {
 }
 
 function postArticle(req: Request, res: Response, next: NextFunction): void {
-  const newArt = req.body.json();
+  const newArt = req.body;
   article.insert(newArt)
     .then((art) => res.status(201).json(art))
     .catch((err) => next(err));
 }
 
 function putArticle(req: Request, res: Response, next: NextFunction): void {
-  const { id, ...params } = req.body.json();
+  const { id, ...params } = req.body;
   article.update(params, { id })
-    .then((art) => res.status(200).json(art))
+    .then((count) => res.status(200).json({ affected: count }))
     .catch((err) => next(err));
 }
 
 function deleteArticle(req: Request, res: Response, next: NextFunction): void {
   const { id } = req.params;
   article.delete({ id })
-    .then((art) => res.status(200).json(art))
+    .then((count) => res.status(200).json({ affected: count }))
     .catch((err) => next(err));
 }
 

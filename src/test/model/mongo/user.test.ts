@@ -13,7 +13,7 @@ import {
 import { console, envSelect } from '../../../utils';
 import { User, IUser } from '../../../model/mongo/user.js';
 
-describe('User Mongo User', () => {
+describe('Mng.Article', () => {
   let db: Db;
   let client: MongoClient;
   let user: User;
@@ -58,26 +58,26 @@ describe('User Mongo User', () => {
     }
   });
 
-  it('User Mongo selectAll', async () => {
+  it('Mng.User.select', async () => {
     const users = await user.selectAll();
     expect(users).toHaveLength(2);
   });
 
-  it('User Mongo selectByid', async () => {
+  it('Mng.User.selectByid', async () => {
     const users = await user.selectAll();
     const { name } = users[0];
     const userById = await user.selectByid({ id: users[0].name });
     expect(userById?.name).toBe(name);
   });
 
-  it('User Mongo select by param', async () => {
+  it('Mng.User.select(params)', async () => {
     const users = await user.selectAll();
     const { name } = users[0];
     const userByTitle = await user.select({ name });
     expect(userByTitle[0].name || '').toBe(name);
   });
 
-  it('User Mongo insert', async () => {
+  it('Mng.User.insert', async () => {
     const salt = await bcrypt.genSalt(10);
     const plainPass = faker.internet.password();
     const pass = await bcrypt.hash(plainPass, salt);
@@ -91,14 +91,14 @@ describe('User Mongo User', () => {
     expect(userInserted.name).not.toBeNull();
   });
 
-  it('User Mongo update', async () => {
+  it('Mng.User.update', async () => {
     const users = await user.selectAll();
     const updates = { name: faker.lorem.words() };
     const afected = await user.update(updates, { email: users[0].email });
     expect(afected).toBeTruthy();
   });
 
-  it('User Mongo delete', async () => {
+  it('Mng.User.delete', async () => {
     const users = await user.selectAll();
     const afected = await user.delete({ name: users[0].name });
     const notAfected = await user.delete({ name: faker.internet.userName() });

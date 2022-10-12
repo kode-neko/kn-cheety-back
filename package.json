@@ -12,8 +12,8 @@
     "prod": "node ./public/src -m prod",
     "dev": "concurrently \"npm run build:watch\" \"npm run start:nodemon\"",
     "test": "jest",
-    "menu:mongo": "node ./public/src/utils/menu/mongo.js",
-    "menu:sql": "node ./public/src/utils/menu/sql.j"
+    "menu:mongo": "node ./public/src/utils/menu/index.js --db mongo",
+    "menu:sql": "node ./public/src/utils/menu/index.j --db sql"
   },
   "repository": {
     "type": "git",

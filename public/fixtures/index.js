@@ -1,5 +1,2 @@
-import { createRequire } from 'module';
-const requiree = createRequire('./');
-const articlesFixtures = requiree('./articles.json');
-const usersFixtures = requiree('./users.json');
-export { articlesFixtures, usersFixtures };
+export { default as articlesFixtures } from './articles.js';
+export { default as usersFixtures } from './users.js';

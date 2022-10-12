@@ -1,82 +1,59 @@
 import dotenv from 'dotenv';
 import { Db, MongoClient } from 'mongodb';
-import { connect, disconnect } from 'mongoose';
 import { faker } from '@faker-js/faker';
 import {
-  getURL,
-  getClient,
-  populate,
-  deleteData,
-  drop,
-} from '../../../utils/mongo/index.js';
-import { console, envSelect } from '../../../utils';
+  initDbTest,
+  dropDBTest,
+} from '../../../utils/mongo';
+import { deleteDataMongo, envSelect, populateMongo } from '../../../utils';
 import { Article, IArticle } from '../../../model/mongo/article.js';
 
-describe('Article Mongo Article', () => {
+describe('Mng.Article', () => {
   let db: Db;
   let client: MongoClient;
   let article: Article;
 
   beforeAll(async () => {
-    try {
-      const pathDotEnv = envSelect('dev');
-      dotenv.config({ path: pathDotEnv });
-      const url = getURL();
-      client = await getClient(url);
-      db = client.db('cheety');
-      await connect(url);
-    } catch (err) {
-      console.error(err);
-    }
+    const pathDotEnv = envSelect('dev');
+    dotenv.config({ path: pathDotEnv });
+    const data = await initDbTest();
+    db = data.db;
+    client = data.client;
   });
 
   beforeEach(async () => {
-    try {
-      await populate(db);
-      article = new Article();
-    } catch (err) {
-      console.error(err);
-    }
+    await populateMongo(db);
+    article = new Article();
   });
 
   afterEach(async () => {
-    try {
-      await deleteData(db);
-    } catch (err) {
-      console.error(err);
-    }
+    await deleteDataMongo(db);
   });
 
   afterAll(async () => {
-    try {
-      await drop(db);
-      await disconnect();
-      await client.close();
-    } catch (err) {
-      console.error(err);
-    }
+    await dropDBTest(client, db);
   });
 
-  it('Article Mongo selectAll', async () => {
+  it('Mng.Article.select', async () => {
     const articles = await article.selectAll();
     expect(articles).toHaveLength(3);
   });
 
-  it('Article Mongo selectByid', async () => {
+  it('Mng.Article.selectByid', async () => {
     const articles = await article.selectAll();
     const { id } = articles[0];
     const articleById = await article.selectByid({ id: articles[0].id });
-    expect(articleById?.id).toBe(id);
+    expect(articleById?.id).toStrictEqual(id);
   });
 
-  it('Article Mongo select by param', async () => {
+  it('Mng.Article.select(params)', async () => {
     const articles = await article.selectAll();
     const { title } = articles[0];
     const articleByTitle = await article.select({ title });
     expect(articleByTitle[0].title || '').toBe(title);
   });
 
-  it('Article Mongo insert', async () => {
+  it('Mng.Article.insert', async () => {
     const articleAux: IArticle = {
       title: faker.lorem.words(),
       content: faker.lorem.text(),
@@ -88,14 +65,14 @@ describe('Article Mongo Article', () => {
     expect(articleInserted.id).not.toBeNull();
   });
 
-  it('Article Mongo update', async () => {
+  it('Mng.Article.update', async () => {
     const articles = await article.selectAll();
     const updates = { title: faker.lorem.words() };
     const afected = await article.update(updates, { id: articles[0].id });
     expect(afected).toBeTruthy();
   });
 
-  it('Article Mongo delete', async () => {
+  it('Mng.Article.delete', async () => {
     const articles = await article.selectAll();
     const afected = await article.delete({ _id: articles[0].id });
     const notAfected = await article.delete({ _id: faker.datatype.uuid() });

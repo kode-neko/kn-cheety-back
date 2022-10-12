@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import {
-  getUser,
+  findUser,
   getUserId,
   postUser,
   putUser,
@@ -9,10 +9,10 @@ import {
 
 const router = Router();
 
-router.get('/', getUser);
-router.get('/:id', getUserId);
+router.post('/find', findUser);
+router.get('/:name', getUserId);
 router.post('/', postUser);
 router.put('/', putUser);
-router.delete('/:id', deleteUser);
+router.delete('/:name', deleteUser);
 
 export default router;

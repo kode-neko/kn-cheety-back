@@ -72,9 +72,12 @@ export default {
   // maxWorkers: "50%",
 
   // An array of directory names to be searched recursively up from the requiring module's location
-  // moduleDirectories: [
-  //   "node_modules"
-  // ],
+  /*moduleDirectories: [
+    ".",
+    "src",
+    "src/util",
+    "node_modules"
+  ],*/
 
   // An array of file extensions your modules use
   moduleFileExtensions: [
@@ -89,10 +92,16 @@ export default {
   ],
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
-  moduleNameMapper: {
+  
+ moduleNameMapper: {
     '^(\\.{1,2}/.*)\\.js$': '$1',
+    // "^@fixtures/(.*)$": "<rootDir>/fixtures/$1",
+    // "^@src/(.*)$": "<rootDir>/src/$1",
+    // "^@model/(.*)$": "<rootDir>/src/model/$1",
+    // "^@ctrl/(.*)$": "<rootDir>/src/controller/$1",
+    // "^@utils/(.*)$": "<rootDir>/src/utils",
   },
-
+ 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
   // modulePathIgnorePatterns: [],
 
