@@ -1,4 +1,5 @@
 import express from 'express';
+import { errorHandler, notFound } from './middleware/index.js';
 import {
   articleRouter,
   userRouter,
@@ -10,5 +11,7 @@ app.use(express.json());
 app.use('/article', articleRouter);
 app.use('/user', userRouter);
 app.use('/auth', authRouter);
+app.use(notFound);
+app.use(errorHandler);
 
 export default app;
