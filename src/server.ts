@@ -1,6 +1,6 @@
 import express from 'express';
 import helmet from 'helmet';
-import { errorHandler, notFound } from './middleware/index.js';
+import { errorHandler, notFound, rateLimiter } from './middleware/index.js';
 import {
   articleRouter,
   userRouter,
@@ -9,6 +9,7 @@ import {
 
 const app = express();
 app.use(helmet());
+app.use(rateLimiter);
 app.use(express.json());
 app.use('/article', articleRouter);
 app.use('/user', userRouter);
