@@ -1,4 +1,5 @@
 import express from 'express';
+import helmet from 'helmet';
 import { errorHandler, notFound } from './middleware/index.js';
 import {
   articleRouter,
@@ -7,6 +8,7 @@ import {
 } from './routes/index.js';
 
 const app = express();
+app.use(helmet());
 app.use(express.json());
 app.use('/article', articleRouter);
 app.use('/user', userRouter);
