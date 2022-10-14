@@ -1,11 +1,11 @@
-import {
-  ErrorRequestHandler, Request, Response,
-} from 'express';
+import { Request, Response } from 'express';
+import i18next from 'i18next';
+import { ErrorServer } from '../config/index.js';
 
-function errorHandler(err: ErrorRequestHandler, req: Request, res: Response) {
+function errorHandler(err: ErrorServer, req: Request, res: Response) {
   res
-    .status(404)
-    .send({ error: err });
+    .status(err.code)
+    .send({ name: err.message, msg: i18next.t(err.message) });
 }
 
 export default errorHandler;
