@@ -41,7 +41,7 @@ describe('Ctrl.Mng.Article', () => {
   it('Ctrl.Mng.POST /article/find', async () => {
     const { status, body } = await supertest(app)
       .post('/article/find')
-      .send({ tags: [] });
+      .send({ patata: [] });
     expect(status).toBe(200);
     expect(body).toHaveLength(3);
   });
@@ -52,17 +52,17 @@ describe('Ctrl.Mng.Article', () => {
       .send({ tags: [] });
     const artExpect = body[0];
     const { status, body: article } = await supertest(app)
-      .get(`/article/${artExpect.id}`);
+      .get(`/article/${artExpect?.id}`);
     expect(status).toBe(200);
     expect(article.id).toBe(artExpect.id);
   });
 
   it('Ctrl.Mng.POST /article', async () => {
-    const artNew: IArticle = {
+    const artNew = {
       title: faker.lorem.words(),
       content: faker.lorem.paragraph(),
       author: faker.name.firstName(),
-      lang: 'es',
+      // lang: 'es',
       tags: [faker.lorem.word()],
     };
     const { status, body } = await supertest(app)

@@ -1,7 +1,7 @@
 import express from 'express';
 import helmet from 'helmet';
-import i18nextHttpMiddleware from 'i18next-http-middleware';
-import i18next from 'i18next';
+// import i18nextHttpMiddleware from 'i18next-http-middleware';
+// import i18next from 'i18next';
 import { errorHandler, notFound, rateLimiter } from './middleware/index.js';
 import {
   articleRouter,
@@ -11,15 +11,15 @@ import {
 
 const app = express();
 
+// json
+app.use(express.json());
+
 // Security
 app.use(helmet());
 app.use(rateLimiter);
 
 // i18n
-app.use(i18nextHttpMiddleware.handle(i18next, {}));
-
-// json
-app.use(express.json());
+// app.use(i18nextHttpMiddleware.handle(i18next, {}));
 
 // Routes
 app.use('/article', articleRouter);

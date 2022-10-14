@@ -1,3 +1,4 @@
+export { default as errValHandler } from './errValHandler.js';
 export {
   validId,
   validSkipLimit,
