@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { verifyToken } from '../middleware/index.js';
 import {
   errValHandler, validId, validListArticle, validListFind,
 } from '../middleware/validators/index.js';
@@ -12,10 +13,10 @@ import {
 
 const router = Router();
 
-router.post('/find', ...validListFind, findArticle);
-router.get('/:id', validId, getArticleId);
-router.post('/', ...validListArticle, postArticle);
-router.put('/', ...validListArticle, putArticle);
-router.delete('/:id', validId, deleteArticle);
+router.post('/find', findArticle);
+router.get('/:id', getArticleId);
+router.post('/', postArticle);
+router.put('/', putArticle);
+router.delete('/:id', deleteArticle);
 
 export default router;

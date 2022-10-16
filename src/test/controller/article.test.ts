@@ -11,7 +11,6 @@ import {
 import { envSelect } from '../../utils';
 import { dropDBTest, initDbTest } from '../../utils/mongo/test/index.js';
 import app from '../../server.js';
-import { IArticle } from '../../model/mongo/article.js';
 
 describe('Ctrl.Mng.Article', () => {
   let db: Db;
@@ -41,7 +40,7 @@ describe('Ctrl.Mng.Article', () => {
   it('Ctrl.Mng.POST /article/find', async () => {
     const { status, body } = await supertest(app)
       .post('/article/find')
-      .send({ patata: [] });
+      .send({ tags: [] });
     expect(status).toBe(200);
     expect(body).toHaveLength(3);
   });

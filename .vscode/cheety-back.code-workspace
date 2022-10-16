@@ -4,16 +4,7 @@
 			"path": ".."
 		},
 		{
-			"path": "../../ejemplos/udemy-node-example"
-		},
-		{
-			"path": "../../ejemplos/udemy-node-sql-example"
-		},
-		{
-			"path": "../../testing-express"
-		},
-		{
-			"path": "../../../docker/server"
+			"path": "../../create-pass"
 		}
 	],
 	"settings": {
