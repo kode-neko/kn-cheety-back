@@ -29,3 +29,4 @@ const articles = [
     },
 ];
 export default articles;
+//# sourceMappingURL=articles.js.map

@@ -9,7 +9,7 @@ function i18nextConfig() {
       preload: ['en', 'es'],
       supportedLngs: ['en', 'es'],
       lng: 'es',
-      debug: true,
+      debug: false,
       resources: { en: { translation: en }, es: { translation: es } },
     });
 }

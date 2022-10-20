@@ -8,7 +8,7 @@ export {
   mongoIdToIdArticle,
   getURL,
   getClient,
-  initDbTest, 
+  initDbTest,
   dropDBTest,
   create as createMongo,
   createAll as createAllMongo,

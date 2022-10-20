@@ -7,8 +7,8 @@ services:
     volumes:
       - ./:/home/node/app
     ports:
-      - "80:8081"
-    command: "npm start"
+      - "80:3001"
+    command: "npm run start:fast"
     networks:
       - "cheety_back_net"
   nosql:
@@ -25,3 +25,5 @@ services:
 networks:
   cheety_back_net:
     driver: bridge
+volumes:
+  cheety-nodemodules:
