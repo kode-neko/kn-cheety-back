@@ -9,3 +9,19 @@ services:
     ports:
       - "80:8081"
     command: "npm start"
+    networks:
+      - "cheety_back_net"
+  nosql:
+    image: mongo
+    ports:
+      - 3021:27017
+    networks:
+      - "cheety_back_net"
+    volumes:
+      - "./volumes/nosql:/data/db"
+    environment:
+      - "MONGO_INITDB_ROOT_USERNAME=root"
+      - "MONGO_INITDB_ROOT_PASSWORD=D8A7pxav"
+networks:
+  cheety_back_net:
+    driver: bridge

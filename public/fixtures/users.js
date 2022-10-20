@@ -2,14 +2,14 @@ const users = [
     {
         name: 'kodeneko',
         email: 'kodeneko@gmail.com',
-        pass: 'bd385140a9f08e1858d22a408d23108886b22b49787a7629bf67abb6e0acb32f',
-        salt: '^7B9^9g37q2^',
+        pass: '$2b$12$QbC/38jJ2oPMdXeXivteHOTZ0FZLSqgACfCFLggKWMT84Qs8626b2',
+        salt: '$2b$12$QbC/38jJ2oPMdXeXivteHO',
     },
     {
         name: 'test',
         email: 'test@test.com',
-        pass: '5ca254d0ffea6a9f3c4923340f750685f29f5e080b1e8970d98056c0fb65a036',
-        salt: '5Lr$cr14Ng94',
+        pass: '$2b$12$8j/JRKW/.EZmfDTi8Z1Wcu9ZTijNCWPuvwa3XhcB7t8KYPn.qgsGy',
+        salt: '$2b$12$8j/JRKW/.EZmfDTi8Z1Wcu5Lr$cr14Ng94',
     },
 ];
 export default users;
