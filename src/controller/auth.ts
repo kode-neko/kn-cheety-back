@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import basicAuth from 'basic-auth';
+import basicAuth, { BasicAuthResult } from 'basic-auth';
 import jwt from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
 import { ErrorCodes, ErrorServer } from '../config/index.js';
@@ -22,16 +22,26 @@ function signup(req: Request, res: Response, next: NextFunction) {
       });
     })
     .then(() => res.status(201).json({ msg: 'created' }))
-    .catch(() => { throw new ErrorServer(ErrorCodes.SERVER_ERROR); });
+    .catch(() => next(new ErrorServer(ErrorCodes.SERVER_ERROR)));
 }
 
-async function login(req: Request, res: Response) {
+async function login(req: Request, res: Response, next: NextFunction) {
   const credentials = basicAuth(req);
   if (!credentials) {
-    throw new ErrorServer(ErrorCodes.ATHENTICATION_ERROR);
+    next(new ErrorServer(ErrorCodes.ATHENTICATION_ERROR));
+    return;
   }
-  const { name, pass } = credentials;
+  const resultAuth: (BasicAuthResult | undefined) = credentials;
+  if (!resultAuth) {
+    next(new ErrorServer(ErrorCodes.ATHENTICATION_ERROR));
+    return;
+  }
+  const { name, pass } = resultAuth as BasicAuthResult;
   const userCheck = await user.select({ name });
+  if (userCheck.length === 0) {
+    next(new ErrorServer(ErrorCodes.ATHENTICATION_ERROR));
+    return;
+  }
   const hash = bcrypt.hashSync(pass, userCheck[0].salt);
   if (hash === userCheck[0].pass) {
     const token = jwt.sign(
@@ -47,7 +57,7 @@ async function login(req: Request, res: Response) {
         accessToken: token,
       });
   } else {
-    throw new ErrorServer(ErrorCodes.ATHENTICATION_ERROR);
+    next(new ErrorServer(ErrorCodes.ATHENTICATION_ERROR));
   }
 }
 

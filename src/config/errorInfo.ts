@@ -38,10 +38,13 @@ const errorInfo: Record<ErrorCodes, IError> = {
 class ErrorServer extends Error {
   private _code: number;
 
-  constructor(name: ErrorCodes) {
+  private _debug: string;
+
+  constructor(name: ErrorCodes, debug = '') {
     const errorType = errorInfo[name];
     super(errorType.name);
     this._code = errorType.code;
+    this._debug = debug;
   }
 
   public get code(): number {
@@ -50,6 +53,14 @@ class ErrorServer extends Error {
 
   public set code(value: number) {
     this._code = value;
+  }
+
+  public get debug(): string {
+    return this._debug;
+  }
+
+  public set debug(value: string) {
+    this._debug = value;
   }
 }
 

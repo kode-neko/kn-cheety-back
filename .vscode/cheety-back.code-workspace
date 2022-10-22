@@ -17,6 +17,7 @@
 			"statusBar.background": "#007f70"
 		},
 		"editor.semanticTokenColorCustomizations": {},
-		"docwriter.style": "JSDoc"
+		"docwriter.style": "JSDoc",
+		"npm-scripts.showStartNotification": false
 	}
 }

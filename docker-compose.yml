@@ -1,18 +1,18 @@
 version: '3'
 services:
   node:
-    image: "node"
+    image: "node:16.18.0-alpine3.15"
     user: "node"
-    working_dir: /home/node/app
+    working_dir: "/home/node/app"
     volumes:
-      - ./:/home/node/app
+      - "./:/home/node/app"
     ports:
       - "80:3001"
     command: "npm run start:fast"
     networks:
       - "cheety_back_net"
   nosql:
-    image: mongo
+    image: "mongo"
     ports:
       - 3021:27017
     networks:
@@ -24,6 +24,4 @@ services:
       - "MONGO_INITDB_ROOT_PASSWORD=D8A7pxav"
 networks:
   cheety_back_net:
-    driver: bridge
-volumes:
-  cheety-nodemodules:
+    driver: "bridge"
