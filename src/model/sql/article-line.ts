@@ -1,52 +1,5 @@
-/* eslint-disable max-classes-per-file */
-import {
-  Model, DataTypes, InferAttributes, InferCreationAttributes, ForeignKey,
-} from 'sequelize';
-import ICrud from '../ICrud';
-import { ArticleModel } from './article';
-import getCon from './connect';
-
-interface IArticleLine {
-  id?: number;
-  content: string;
-  lang: string;
-  article: number;
-}
-
-class ArticleLineModel extends Model<
-InferAttributes<ArticleLineModel>,
-InferCreationAttributes<ArticleLineModel>
-> implements IArticleLine {
-  declare id: number;
-
-  declare content: string;
-
-  declare lang: string;
-
-  declare article: ForeignKey<ArticleModel['id']>;
-}
-
-ArticleLineModel.init({
-  id: {
-    type: DataTypes.NUMBER,
-    allowNull: false,
-    primaryKey: true,
-  },
-  content: {
-    type: DataTypes.TEXT,
-  },
-  lang: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-}, {
-  sequelize: getCon(),
-  modelName: 'article_line',
-});
-
-ArticleLineModel.belongsTo(ArticleModel, { targetKey: 'id' });
-
-ArticleLineModel.sync();
+import ICrud from '../ICrud.js';
+import { IArticleLine, ArticleLineModel } from './schema/index.js';
 
 class ArticleLine implements ICrud<IArticleLine> {
   async selectByid(params: Record<string, unknown>): Promise<IArticleLine | null> {
@@ -54,13 +7,27 @@ class ArticleLine implements ICrud<IArticleLine> {
     return articleLine;
   }
 
-  async selectAll(): Promise<IArticleLine[]> {
-    const articleLines = await ArticleLineModel.findAll();
-    return articleLines;
+  async selectAll(skip?: number, limit?: number): Promise<IArticleLine[]> {
+    let users: IArticleLine[];
+    if (skip && limit) {
+      users = await ArticleLineModel.findAll({ offset: skip, limit });
+    } else {
+      users = await ArticleLineModel.findAll();
+    }
+    return users;
   }
 
-  async select(params: Record<string, unknown>): Promise<IArticleLine[]> {
-    const articleLines = await ArticleLineModel.findAll(params);
+  async select(
+    params: Record<string, unknown>,
+    skip?: number,
+    limit?: number,
+  ): Promise<IArticleLine[]> {
+    let articleLines: IArticleLine[];
+    if (skip && limit) {
+      articleLines = await ArticleLineModel.findAll({ ...params, offset: skip, limit });
+    } else {
+      articleLines = await ArticleLineModel.findAll(params);
+    }
     return articleLines;
   }
 

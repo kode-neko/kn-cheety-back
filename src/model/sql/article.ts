@@ -1,53 +1,5 @@
-/* eslint-disable max-classes-per-file */
-import {
-  Model, DataTypes, InferAttributes, InferCreationAttributes, ForeignKey,
-} from 'sequelize';
-import ICrud from '../ICrud';
-import getCon from './connect';
-import { UserModel } from './user';
-
-interface IArticle {
-  id?: number;
-  title: string;
-  author: string;
-  lang: string;
-}
-
-class ArticleModel extends Model<
-InferAttributes<ArticleModel>,
-InferCreationAttributes<ArticleModel>
-> implements IArticle {
-  declare id: number;
-
-  declare title: string;
-
-  declare author: ForeignKey<UserModel['name']>;
-
-  declare lang: string;
-}
-
-ArticleModel.init({
-  id: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    primaryKey: true,
-  },
-  title: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  lang: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-}, {
-  sequelize: getCon(),
-  modelName: 'article',
-});
-
-ArticleModel.belongsTo(UserModel, { targetKey: 'name' });
-
-ArticleModel.sync();
+import ICrud from '../ICrud.js';
+import { IArticle, ArticleModel } from './schema/index.js';
 
 class Article implements ICrud<IArticle> {
   async selectByid(params: Record<string, unknown>): Promise<IArticle | null> {
@@ -55,13 +7,27 @@ class Article implements ICrud<IArticle> {
     return article;
   }
 
-  async selectAll(): Promise<IArticle[]> {
-    const articles = await ArticleModel.findAll();
-    return articles;
+  async selectAll(skip?: number, limit?: number): Promise<IArticle[]> {
+    let users: IArticle[];
+    if (skip && limit) {
+      users = await ArticleModel.findAll({ offset: skip, limit });
+    } else {
+      users = await ArticleModel.findAll();
+    }
+    return users;
   }
 
-  async select(params: Record<string, unknown>): Promise<IArticle[]> {
-    const articles = await ArticleModel.findAll(params);
+  async select(
+    params: Record<string, unknown>,
+    skip?: number,
+    limit?: number,
+  ): Promise<IArticle[]> {
+    let articles: IArticle[];
+    if (skip && limit) {
+      articles = await ArticleModel.findAll({ ...params, offset: skip, limit });
+    } else {
+      articles = await ArticleModel.findAll(params);
+    }
     return articles;
   }
 
@@ -82,8 +48,3 @@ class Article implements ICrud<IArticle> {
 }
 
 export default Article;
-export {
-  IArticle,
-  ArticleModel,
-  Article,
-};

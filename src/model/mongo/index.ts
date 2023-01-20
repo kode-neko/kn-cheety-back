@@ -1,2 +1,4 @@
-export { default as Article } from './article';
-export { default as User } from './user';
+export {
+  IArticle, IArticleMongo, ArticleModel, Article,
+} from './article.js';
+export { IUser, UserModel, User } from './user.js';

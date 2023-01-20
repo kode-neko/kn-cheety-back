@@ -1,54 +1,5 @@
-/* eslint-disable max-classes-per-file */
-import {
-  Model, DataTypes, InferAttributes, InferCreationAttributes,
-} from 'sequelize';
-import ICrud from '../ICrud';
-import getCon from './connect';
-
-interface IUser {
-  name: string;
-  email: string;
-  pass: string;
-  salt: string;
-}
-
-class UserModel extends Model<
-InferAttributes<UserModel>,
-InferCreationAttributes<UserModel>
-> implements IUser {
-  declare name: string;
-
-  declare email: string;
-
-  declare pass: string;
-
-  declare salt: string;
-}
-
-UserModel.init({
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    primaryKey: true,
-  },
-  email: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  pass: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  salt: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-}, {
-  sequelize: getCon(),
-  modelName: 'user',
-});
-
-UserModel.sync();
+import ICrud from '../ICrud.js';
+import { IUser, UserModel } from './schema/index.js';
 
 class User implements ICrud<IUser> {
   async selectByid(params: Record<string, unknown>): Promise<IUser | null> {
@@ -56,13 +7,27 @@ class User implements ICrud<IUser> {
     return user;
   }
 
-  async selectAll(): Promise<IUser[]> {
-    const users = await UserModel.findAll();
+  async selectAll(skip?: number, limit?: number): Promise<IUser[]> {
+    let users: IUser[];
+    if (skip && limit) {
+      users = await UserModel.findAll({ offset: skip, limit });
+    } else {
+      users = await UserModel.findAll();
+    }
     return users;
   }
 
-  async select(params: Record<string, unknown>): Promise<IUser[]> {
-    const users = await UserModel.findAll(params);
+  async select(
+    params: Record<string, unknown>,
+    skip?: number,
+    limit?: number,
+  ): Promise<IUser[]> {
+    let users: IUser[];
+    if (skip && limit) {
+      users = await UserModel.findAll({ ...params, offset: skip, limit });
+    } else {
+      users = await UserModel.findAll(params);
+    }
     return users;
   }
 
@@ -83,6 +48,3 @@ class User implements ICrud<IUser> {
 }
 
 export default User;
-export {
-  UserModel,
-};

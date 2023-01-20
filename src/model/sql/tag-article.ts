@@ -1,32 +1,5 @@
-/* eslint-disable max-classes-per-file */
-import {
-  Model, InferAttributes, InferCreationAttributes, ForeignKey,
-} from 'sequelize';
-import ICrud from '../ICrud';
-import { ArticleModel } from './article';
-import getCon from './connect';
-import { TagModel } from './tag';
-
-interface ITagArticle {
-  article: number;
-  tag: string;
-}
-
-class TagArticleModel extends Model<
-InferAttributes<TagArticleModel>,
-InferCreationAttributes<TagArticleModel>
-> implements ITagArticle {
-  declare article: ForeignKey<ArticleModel['id']>;
-
-  declare tag: ForeignKey<TagModel['name']>;
-}
-
-TagArticleModel.init({}, {
-  sequelize: getCon(),
-  modelName: 'tag_article',
-});
-
-TagArticleModel.sync();
+import ICrud from '../ICrud.js';
+import { ITagArticle, TagArticleModel } from './schema/index.js';
 
 class TagArticle implements ICrud<ITagArticle> {
   async selectByid(params: Record<string, unknown>): Promise<ITagArticle | null> {
@@ -34,13 +7,27 @@ class TagArticle implements ICrud<ITagArticle> {
     return tagArticle;
   }
 
-  async selectAll(): Promise<ITagArticle[]> {
-    const tagArticles = await TagArticleModel.findAll();
-    return tagArticles;
+  async selectAll(skip?: number, limit?: number): Promise<ITagArticle[]> {
+    let users: ITagArticle[];
+    if (skip && limit) {
+      users = await TagArticleModel.findAll({ offset: skip, limit });
+    } else {
+      users = await TagArticleModel.findAll();
+    }
+    return users;
   }
 
-  async select(params: Record<string, unknown>): Promise<ITagArticle[]> {
-    const tagArticles = await TagArticleModel.findAll(params);
+  async select(
+    params: Record<string, unknown>,
+    skip?: number,
+    limit?: number,
+  ): Promise<ITagArticle[]> {
+    let tagArticles: ITagArticle[];
+    if (skip && limit) {
+      tagArticles = await TagArticleModel.findAll({ ...params, offset: skip, limit });
+    } else {
+      tagArticles = await TagArticleModel.findAll(params);
+    }
     return tagArticles;
   }
 

@@ -1,37 +1,20 @@
-import {
-  getArticle,
+export {
+  findArticle,
   getArticleId,
   postArticle,
   putArticle,
   deleteArticle,
-} from './article';
-
-import {
-  getUser,
-  getUserId,
-  postUser,
-  putUser,
-  deleteUser,
-} from './user';
-
-import {
-  signup,
-  login,
-  logout,
-} from './auth';
+} from './article.js';
 
 export {
-  getArticle,
-  getArticleId,
-  postArticle,
-  putArticle,
-  deleteArticle,
-  getUser,
+  findUser,
   getUserId,
   postUser,
   putUser,
   deleteUser,
+} from './user.js';
+
+export {
   signup,
   login,
-  logout,
-};
+} from './auth.js';

@@ -4,16 +4,7 @@
 			"path": ".."
 		},
 		{
-			"path": "../../ejemplos/udemy-node-example"
-		},
-		{
-			"path": "../../ejemplos/udemy-node-sql-example"
-		},
-		{
-			"path": "../../testing-express"
-		},
-		{
-			"path": "../../../docker/server"
+			"path": "../../create-pass"
 		}
 	],
 	"settings": {
@@ -26,6 +17,7 @@
 			"statusBar.background": "#007f70"
 		},
 		"editor.semanticTokenColorCustomizations": {},
-		"docwriter.style": "JSDoc"
+		"docwriter.style": "JSDoc",
+		"npm-scripts.showStartNotification": false
 	}
 }

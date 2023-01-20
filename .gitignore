@@ -99,3 +99,6 @@ cypress/videos/e2e/2-advanced-examples
 
 # Dist
 public/src
+
+# Docker
+volumes

@@ -1,10 +1,10 @@
 import { Schema, model } from 'mongoose';
-import ICrud from '../ICrud';
+import { checkIdCount, checkIdObj } from '../../utils/index.js';
+import ICrud from '../ICrud.js';
 
 interface IUser {
-  id: string;
   name: string;
-  mail: string;
+  email: string;
   pass: string;
   salt: string;
 }
@@ -14,7 +14,7 @@ const userSchema = new Schema<IUser>({
     type: String,
     required: true,
   },
-  mail: {
+  email: {
     type: String,
     required: true,
   },
@@ -26,41 +26,59 @@ const userSchema = new Schema<IUser>({
     type: String,
     required: true,
   },
-}, { id: true });
+}, { collection: 'user' });
 
 const UserModel = model('user', userSchema);
 
 class User implements ICrud<IUser> {
+  @checkIdObj
   async selectByid(params: Record<string, unknown>): Promise<IUser | null> {
-    const article = await UserModel.findOne(params);
-    return article;
+    const user = await UserModel.findOne(params);
+    return user;
   }
 
-  async selectAll(): Promise<IUser[]> {
-    const articles = await UserModel.find();
-    return articles;
+  async selectAll(skip?: number, limit?: number): Promise<IUser[]> {
+    let users: IUser[];
+    if (skip && limit) {
+      users = await UserModel.find({}).skip(skip).limit(limit);
+    } else {
+      users = await UserModel.find({});
+    }
+    return users;
   }
 
-  async select(params: Record<string, unknown>): Promise<IUser[]> {
-    const articles = await UserModel.find(params);
-    return articles;
+  async select(
+    params: Record<string, unknown>,
+    skip?: number,
+    limit?: number,
+  ): Promise<IUser[]> {
+    let users: IUser[];
+    if (skip && limit) {
+      users = await UserModel.find(params).skip(skip).limit(limit);
+    } else {
+      users = await UserModel.find(params);
+    }
+    return users;
   }
 
+  @checkIdObj
   async insert(ele: IUser): Promise<IUser> {
-    const article = new UserModel(ele);
-    await article.save();
-    return article;
+    const user = new UserModel(ele);
+    await user.save();
+    return user;
   }
 
+  @checkIdCount
   async update(ele: Partial<IUser>, params: Record<string, unknown>): Promise<number> {
     const res = await UserModel.updateOne(params, ele);
     return res.modifiedCount;
   }
 
+  @checkIdCount
   async delete(params: Record<string, unknown>): Promise<number> {
     const res = await UserModel.deleteOne(params);
     return res.deletedCount;
   }
 }
 
-export default User;
+export { IUser, UserModel, User };

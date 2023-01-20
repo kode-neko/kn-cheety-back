@@ -1,33 +1,5 @@
-/* eslint-disable max-classes-per-file */
-import {
-  Model, DataTypes, InferAttributes, InferCreationAttributes,
-} from 'sequelize';
-import ICrud from '../ICrud';
-import getCon from './connect';
-
-interface ITag {
-  name: string;
-}
-
-class TagModel extends Model<
-InferAttributes<TagModel>,
-InferCreationAttributes<TagModel>
-> implements ITag {
-  declare name: string;
-}
-
-TagModel.init({
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    primaryKey: true,
-  },
-}, {
-  sequelize: getCon(),
-  modelName: 'tag',
-});
-
-TagModel.sync();
+import ICrud from '../ICrud.js';
+import { ITag, TagModel } from './schema/index.js';
 
 class Tag implements ICrud<ITag> {
   async selectByid(params: Record<string, unknown>): Promise<ITag | null> {
@@ -35,13 +7,27 @@ class Tag implements ICrud<ITag> {
     return tag;
   }
 
-  async selectAll(): Promise<ITag[]> {
-    const tags = await TagModel.findAll();
-    return tags;
+  async selectAll(skip?: number, limit?: number): Promise<ITag[]> {
+    let users: ITag[];
+    if (skip && limit) {
+      users = await TagModel.findAll({ offset: skip, limit });
+    } else {
+      users = await TagModel.findAll();
+    }
+    return users;
   }
 
-  async select(params: Record<string, unknown>): Promise<ITag[]> {
-    const tags = await TagModel.findAll(params);
+  async select(
+    params: Record<string, unknown>,
+    skip?: number,
+    limit?: number,
+  ): Promise<ITag[]> {
+    let tags: ITag[];
+    if (skip && limit) {
+      tags = await TagModel.findAll({ ...params, offset: skip, limit });
+    } else {
+      tags = await TagModel.findAll(params);
+    }
     return tags;
   }
 
@@ -62,6 +48,3 @@ class Tag implements ICrud<ITag> {
 }
 
 export default Tag;
-export {
-  TagModel,
-};

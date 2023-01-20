@@ -1,18 +1,22 @@
 import { Router } from 'express';
+import { verifyToken } from '../middleware/index.js';
 import {
-  getArticle,
+  errValHandler, validId, validListArticle, validListFind,
+} from '../middleware/validators/index.js';
+import {
+  findArticle,
   getArticleId,
   postArticle,
   putArticle,
   deleteArticle,
-} from '../controller/article';
+} from '../controller/article.js';
 
 const router = Router();
 
-router.get('/', getArticle);
-router.get('/:id', getArticleId);
-router.post('/', postArticle);
-router.put('/', putArticle);
-router.delete('/:id', deleteArticle);
+router.post('/find', verifyToken, findArticle);
+router.get('/:id', verifyToken, getArticleId);
+router.post('/', verifyToken, postArticle);
+router.put('/', verifyToken, putArticle);
+router.delete('/:id', verifyToken, deleteArticle);
 
 export default router;

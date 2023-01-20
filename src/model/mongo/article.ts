@@ -1,19 +1,24 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import {
   Schema, model, Types,
 } from 'mongoose';
-import ICrud from '../ICrud';
-import { checkIdCount, checkIdObj } from './decorator';
+import { checkIdCount, checkIdObj, mongoIdToIdArticle } from '../../utils/index.js';
+import ICrud from '../ICrud.js';
 
 interface IArticle {
   id?: Types.ObjectId;
   title?: string;
-  content?: string | [string];
-  tags: [string];
+  content?: string | string[];
+  tags: string[];
   lang: string;
   author: string;
 }
 
-const articleSchema = new Schema<IArticle>({
+interface IArticleMongo extends IArticle {
+  _id?: Types.ObjectId;
+}
+
+const articleSchema = new Schema<IArticleMongo>({
   title: {
     type: String,
   },
@@ -34,31 +39,47 @@ const articleSchema = new Schema<IArticle>({
     type: String,
     required: true,
   },
-}, { collection: 'article' });
+}, { collection: 'article', id: true });
 
 const ArticleModel = model('article', articleSchema);
 class Article implements ICrud<IArticle> {
   @checkIdObj
   async selectByid(params: Record<string, unknown>): Promise<IArticle | null> {
     const article = await ArticleModel.findOne(params);
-    return article;
+    return article && mongoIdToIdArticle(article as IArticleMongo);
   }
 
-  async selectAll(): Promise<IArticle[]> {
-    const articles = await ArticleModel.find({});
-    return articles;
+  async selectAll(skip?: number, limit?: number): Promise<IArticle[]> {
+    let articles: IArticleMongo[];
+    if (skip && limit) {
+      articles = await ArticleModel.find({}).skip(skip).limit(limit);
+    } else {
+      articles = await ArticleModel.find({});
+    }
+    const articlesId = articles.map(mongoIdToIdArticle);
+    return articlesId;
   }
 
-  async select(params: Record<string, unknown>): Promise<IArticle[]> {
-    const articles = await ArticleModel.find(params);
-    return articles;
+  async select(
+    params: Record<string, unknown>,
+    skip?: number,
+    limit?: number,
+  ): Promise<IArticle[]> {
+    let articles: IArticleMongo[];
+    if (skip !== undefined && limit !== undefined) {
+      articles = await ArticleModel.find(params).skip(skip).limit(limit);
+    } else {
+      articles = await ArticleModel.find(params);
+    }
+    const articlesId = articles.map(mongoIdToIdArticle);
+    return articlesId;
   }
 
   @checkIdObj
   async insert(ele: IArticle): Promise<IArticle> {
     const article = new ArticleModel(ele);
     await article.save();
-    return article;
+    return mongoIdToIdArticle(article);
   }
 
   @checkIdCount
@@ -69,10 +90,18 @@ class Article implements ICrud<IArticle> {
 
   @checkIdCount
   async delete(params: Record<string, unknown>): Promise<number> {
-    const res = await ArticleModel.deleteMany(params);
+    // eslint-disable-next-line prefer-const
+    let { id, ...paramsDepurated } = params;
+    if (params.id) {
+      paramsDepurated = { ...paramsDepurated, _id: id };
+    } else {
+      paramsDepurated = { ...paramsDepurated };
+    }
+    const res = await ArticleModel.deleteMany(paramsDepurated);
     return res.deletedCount;
   }
 }
 
-export default Article;
-export { IArticle };
+export {
+  IArticle, IArticleMongo, ArticleModel, Article,
+};
