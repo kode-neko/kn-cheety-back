@@ -13,10 +13,10 @@ import {
 
 const router = Router();
 
-router.post('/find', findArticle);
-router.get('/:id', getArticleId);
-router.post('/', postArticle);
-router.put('/', putArticle);
-router.delete('/:id', deleteArticle);
+router.post('/find', verifyToken, findArticle);
+router.get('/:id', verifyToken, getArticleId);
+router.post('/', verifyToken, postArticle);
+router.put('/', verifyToken, putArticle);
+router.delete('/:id', verifyToken, deleteArticle);
 
 export default router;

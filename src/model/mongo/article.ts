@@ -66,7 +66,7 @@ class Article implements ICrud<IArticle> {
     limit?: number,
   ): Promise<IArticle[]> {
     let articles: IArticleMongo[];
-    if (skip && limit) {
+    if (skip !== undefined && limit !== undefined) {
       articles = await ArticleModel.find(params).skip(skip).limit(limit);
     } else {
       articles = await ArticleModel.find(params);

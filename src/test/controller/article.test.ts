@@ -40,7 +40,7 @@ describe('Ctrl.Mng.Article', () => {
   it('Ctrl.Mng.POST /article/find', async () => {
     const { status, body } = await supertest(app)
       .post('/article/find')
-      .send({ tags: [] });
+      .send({ tags: ['run'], limit: 10, skip: 0 });
     expect(status).toBe(200);
     expect(body).toHaveLength(3);
   });

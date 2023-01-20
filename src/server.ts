@@ -15,13 +15,15 @@ const app = express();
 app.use(express.json());
 
 // Security
+/*
 app.use(helmet());
 app.use(helmet.contentSecurityPolicy({
   directives: {
     'base-uri': ['self', 'localhost:3000'],
   },
 }));
-app.use(rateLimiter);
+*/
+// app.use(rateLimiter);
 helmet.permittedCrossDomainPolicies({});
 // i18n
 // app.use(i18nextHttpMiddleware.handle(i18next, {}));

@@ -45,7 +45,7 @@ async function login(req: Request, res: Response, next: NextFunction) {
   const hash = bcrypt.hashSync(pass, userCheck[0].salt);
   if (hash === userCheck[0].pass) {
     const token = jwt.sign(
-      { id: userCheck[0].name },
+      { name: userCheck[0].name },
       process.env.API_SECRET as jwt.Secret,
       { expiresIn: 86400 },
     );

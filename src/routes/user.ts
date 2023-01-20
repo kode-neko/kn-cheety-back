@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import verifyToken from '../middleware/verifyToken.js';
 import {
   validEmail, validListFind, validNameParam, validSignUp,
 } from '../middleware/validators/index.js';
@@ -12,10 +13,10 @@ import {
 
 const router = Router();
 
-router.post('/find', findUser);
-router.get('/:name', getUserId);
-router.post('/', postUser);
-router.put('/', putUser);
-router.delete('/:name', deleteUser);
+router.post('/find', verifyToken, findUser);
+router.get('/:name', verifyToken, getUserId);
+router.post('/', verifyToken, postUser);
+router.put('/', verifyToken, putUser);
+router.delete('/:name', verifyToken, deleteUser);
 
 export default router;

@@ -7,7 +7,7 @@ services:
     volumes:
       - "./:/home/node/app"
     ports:
-      - "80:3001"
+      - "3001:3001"
     command: "npm run start:fast"
     networks:
       - "cheety_back_net"
