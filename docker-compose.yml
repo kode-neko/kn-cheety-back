@@ -1,27 +1,33 @@
-version: '3'
+version: "3.9"
+
 services:
+
   node:
-    image: "node:16.18.0-alpine3.15"
-    user: "node"
-    working_dir: "/home/node/app"
-    volumes:
-      - "./:/home/node/app"
-    ports:
-      - "3001:3001"
-    command: "npm run start:fast"
+    image: node:16.18.0-alpine3.15
+    user: node
+    working_dir: /home/node/app
     networks:
-      - "cheety_back_net"
+      - cheety_back_net
+    ports:
+      - 3009:3009
+    volumes:
+      - ./:/home/node/app
+    command: npm run start:prod
+
   nosql:
-    image: "mongo"
-    ports:
-      - 3021:27017
+    image: mongo
     networks:
-      - "cheety_back_net"
+      - cheety_back_net
+    ports:
+      - 3010:27017
     volumes:
-      - "./volumes/nosql:/data/db"
+      - kn-cheety-db:/data/db
+      - ./mongo-init.js:/docker-entryoint-initdb.d/mongo-init.js:ro
     environment:
-      - "MONGO_INITDB_ROOT_USERNAME=root"
-      - "MONGO_INITDB_ROOT_PASSWORD=D8A7pxav"
+      - MONGO_INITDB_ROOT_USERNAME: root
+      - MONGO_INITDB_ROOT_PASSWORD: D8A7pxav
+      - MONGO_INITDB_DATABASE: cheety
+
 networks:
-  cheety_back_net:
-    driver: "bridge"
+  kn-net:
+    driver: bridge

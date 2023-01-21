@@ -59,6 +59,10 @@
         "mocha": true,
         "cypress/globals": true
       }
+    },
+    {
+      "files": ["./mongo-init.js"],
+      "extends": ["airbnb-base"]
     }
   ]
 }

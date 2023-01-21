@@ -5,8 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "npm install && npm run build && npm run prod",
-    "start:fast": "npm run build && npm run prod",
+    "start": "npm run build && npm run prod",
+    "start:prod": "npm install && npm run build && npm run prod",
     "build": "tsc --project tsconfig.json",
     "build:dev": "tsc --watch --project tsconfig.json",
     "prod": "node ./public/src -m prod",
