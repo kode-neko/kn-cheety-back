@@ -1,13 +1,8 @@
-db = connect('mongodb://localhost/cheety');
-
 db.createUser(
   {
     user: 'cheety-admin',
     pwd: 'h457Pb8m',
-    roles: [{
-      role: 'dbOwner',
-      db: 'cheety',
-    }],
+    roles: ['dbOwner'],
   },
 );
 
@@ -15,10 +10,7 @@ db.createUser(
   {
     user: 'cheety-user',
     pwd: '9Dg8EC2O',
-    roles: [{
-      role: 'readWrite',
-      db: 'cheety',
-    }],
+    roles: ['readWrite'],
   },
 );
 

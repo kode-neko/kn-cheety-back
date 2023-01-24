@@ -12,7 +12,6 @@ function getEnv() {
       type: 'string',
     })
     .argv as { [s: string]: unknown };
-
   return argsv.m as string;
 }
 
