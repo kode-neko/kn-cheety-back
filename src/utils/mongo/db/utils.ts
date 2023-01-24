@@ -5,11 +5,11 @@ function getURL(): string {
     DB_MONGO_HOST,
     DB_MONGO_PORT,
     DB_NAME,
-    DB_ADMIN,
-    DB_ADMIN_PASS,
+    DB_USER,
+    DB_USER_PASS,
   } = process.env;
 
-  const credentials = `${DB_ADMIN}:${DB_ADMIN_PASS}`;
+  const credentials = `${DB_USER}:${DB_USER_PASS}`;
   const host = `${DB_MONGO_HOST}:${DB_MONGO_PORT}`;
   const url = `mongodb://${credentials}@${host}/${DB_NAME}`;
   return url;
