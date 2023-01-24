@@ -2,12 +2,12 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import app from './server.js';
 import {
-  console, envSelect, i18nextConfig,
+  console, envSelect, getEnv, i18nextConfig,
 } from './utils/index.js';
 import { getURL } from './utils/mongo/index.js';
 
 i18nextConfig();
-dotenv.config({ path: envSelect() });
+dotenv.config({ path: envSelect(getEnv()) });
 
 mongoose.connect(getURL())
   .then(() => {
